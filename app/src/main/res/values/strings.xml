@@ -1,6 +1,21 @@
 <resources>
-    <string name="app_name">MyAssistant</string>
-    <string name="title_activity_main2">Main2Activity</string>
+    <string name="app_name">PersonAssistant</string>
+    <!--account-->
+    <string name="title_account">Add the budget</string>
+    <string name="tv_account_income">Income</string>
+    <string name="tv_account_spending">Spending</string>
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="minutes_ago">{count} minutes ago</string>
+    <string name="hours_ago">{count} hours ago</string>
+    <string name="days_ago">{count} days ago</string>
+    <string name="weeks_ago">{count} weeks ago</string>
+    <string name="months_ago">{count} months ago</string>
+    <string name="years_ago">{count} years ago</string>
+
+
+
+    <string name="title_activity_main">MainActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

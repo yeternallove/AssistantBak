@@ -1,4 +1,4 @@
-package com.zucc.zwy1317.myassistant.ui.activities;
+package com.zucc.zwy1317.myassistant.ui.base;
 
 import android.support.v7.app.AppCompatActivity;
 

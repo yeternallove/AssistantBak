@@ -1,4 +1,4 @@
-package com.zucc.zwy1317.myassistant.ui.fragments;
+package com.zucc.zwy1317.myassistant.ui.base;
 
 import android.support.v4.app.Fragment;
 

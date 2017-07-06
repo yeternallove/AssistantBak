@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/account_item_height">
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/secondary_text"
+        android:layout_centerInParent="true"/>
+
+    <ImageView
+        android:id="@+id/item_account_iv"
+        android:layout_width="@dimen/account_item_img_size"
+        android:layout_height="@dimen/account_item_img_size"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/item_account_tv_income"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/account_item_tv_margin"
+        android:layout_toStartOf="@+id/item_account_iv"
+        android:text="@string/tv_account_income"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/item_account_tv_spending"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/account_item_tv_margin"
+        android:layout_toEndOf="@+id/item_account_iv"
+        android:text="@string/tv_account_spending"
+        android:textSize="18sp" />
+</RelativeLayout>

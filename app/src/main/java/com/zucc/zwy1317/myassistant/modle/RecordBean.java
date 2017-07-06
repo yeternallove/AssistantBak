@@ -9,15 +9,15 @@ package com.zucc.zwy1317.myassistant.modle;
 public class RecordBean {
     private String rID;
     private String mAmount;
-    private String mTime;
+    private long mTime;
     private Boolean misIncome;
-    private String mTitle;
+    private String mTitle; //标签比如花钱·餐饮
     private String mNote;
     private String uID;
 
     public RecordBean(){}
 
-    public RecordBean( String rID, String amount,String time, Boolean isIncome,String title, String note,String uID){
+    public RecordBean( String rID, String amount,long time, Boolean isIncome,String title, String note,String uID){
         this.rID = rID;
         this.mAmount = amount;
         this.mTime = time;
@@ -43,11 +43,11 @@ public class RecordBean {
         this.mAmount = mAmount;
     }
 
-    public String getmTime() {
+    public long getmTime() {
         return mTime;
     }
 
-    public void setmTime(String mTime) {
+    public void setmTime(long mTime) {
         this.mTime = mTime;
     }
 

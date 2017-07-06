@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">个人助理</string>
+    <!--account-->
+    <string name="title_account">添加预算</string>
+    <string name="tv_account_income">收入</string>
+    <string name="tv_account_spending">支出</string>
+    <string name="today">今天</string>
+    <string name="yesterday">昨天</string>
+    <string name="days_ago">{count} 天前</string>
+    <string name="weeks_ago">{count} 周前</string>
+    <string name="months_ago">{count} 月前</string>
+    <string name="years_ago">{count} 年前</string>
+</resources>
