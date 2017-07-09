@@ -10,22 +10,24 @@ import java.util.List;
 public class WeekItem {
     private boolean mMiddleOfMonth;//月中显示月份标签（默认第15天）
     private String mLabel;
+    private int mYear;
     private List<DayItem> mDayItems;
 
-    public WeekItem(boolean mMiddleOfMonth, String label) {
+    public WeekItem(boolean mMiddleOfMonth, String label,int year) {
         this.mMiddleOfMonth = mMiddleOfMonth;
         this.mLabel = label;
+        this.mYear = year;
     }
 
     public boolean ismMiddleOfMonth() {
         return mMiddleOfMonth;
     }
 
-    public void setmMiddleOfMonth(boolean mMiddleOfMonth) {
+    public void setMiddleOfMonth(boolean mMiddleOfMonth) {
         this.mMiddleOfMonth = mMiddleOfMonth;
     }
 
-    public String getmLabel() {
+    public String getLabel() {
         return mLabel;
     }
 
@@ -33,11 +35,19 @@ public class WeekItem {
         this.mLabel = mLabel;
     }
 
-    public List<DayItem> getmDayItems() {
+    public List<DayItem> getDayItems() {
         return mDayItems;
     }
 
-    public void setmDayItems(List<DayItem> mDayItems) {
+    public void setDayItems(List<DayItem> mDayItems) {
         this.mDayItems = mDayItems;
+    }
+
+    public int getYear() {
+        return mYear;
+    }
+
+    public void setYear(int mYear) {
+        this.mYear = mYear;
     }
 }

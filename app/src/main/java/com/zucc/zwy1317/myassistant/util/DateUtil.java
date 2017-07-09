@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.zucc.zwy1317.myassistant.R;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -24,12 +25,10 @@ public class DateUtil {
         if (date == null) {
             date = new Date();
         }
-        return getString(context,date.getTime());
+        return getDateString(context,date.getTime());
     }
+
     public static String getDateString(Context context,long last){
-        return getString(context,last);
-    }
-    private static String getString(Context context,long last){
         long now = System.currentTimeMillis();
         long offset = now - last;
         if (offset <= DAY) {
@@ -55,5 +54,11 @@ public class DateUtil {
             return context.getString(R.string.years_ago)
                     .replace(COUNT_REPLACEMENT, String.valueOf(offset / YEAR));
         }
+    }
+
+    public static boolean sameCalendar(Calendar c1,Calendar c2){
+        return  c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH)
+                    && c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR)
+                    && c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH);
     }
 }

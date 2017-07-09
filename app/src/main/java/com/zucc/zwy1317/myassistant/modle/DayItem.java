@@ -12,11 +12,12 @@ import java.util.Date;
 public class DayItem implements Serializable {
 
     private Date mDate; //日期
-    private int mDayOfMonth; //相当于Day_OF_Month,一月中的第几天
+    private int mValue; //相当于Day_OF_Month,一月中的第几天
     private int mDayOfWeek; //一个星期中的第几天
     private boolean mToday; //是否是今天
     private boolean mFirstDayOfMonth; //是否是当前月的第一天
     private boolean mSelected;//是否选中
+    private String mMonth;//每个月第一天显示的
 
 
     public DayItem(Date date,boolean today,boolean selected) {
@@ -27,59 +28,67 @@ public class DayItem implements Serializable {
 
     public DayItem(Calendar calendar){
         this.mDate = calendar.getTime();
-        this.mDayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+        this.mValue = calendar.get(Calendar.DAY_OF_MONTH);
         this.mDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
         this.mToday = false;
         this.mSelected = false;
-        this.mFirstDayOfMonth =(mDayOfMonth == 1);
+        this.mFirstDayOfMonth =(mValue == 1);
+        this.mMonth = null;
     }
 
-    public Date getmDate() {
+    public Date getDate() {
         return mDate;
     }
 
-    public void setmDate(Date mDate) {
+    public void setDate(Date mDate) {
         this.mDate = mDate;
     }
 
-    public int getmDayOfMonth() {
-        return mDayOfMonth;
+    public int getValue() {
+        return mValue;
     }
 
-    public void setmDayOfMonth(int mDayOfMonth) {
-        this.mDayOfMonth = mDayOfMonth;
+    public void setValue(int mDayOfMonth) {
+        this.mValue = mDayOfMonth;
     }
 
-    public int getmDayOfWeek() {
+    public int getDayOfWeek() {
         return mDayOfWeek;
     }
 
-    public void setmDayOfWeek(int mDayOfWeek) {
+    public void setDayOfWeek(int mDayOfWeek) {
         this.mDayOfWeek = mDayOfWeek;
     }
 
-    public boolean ismToday() {
+    public boolean isToday() {
         return mToday;
     }
 
-    public void setmToday(boolean mToday) {
+    public void setToday(boolean mToday) {
         this.mToday = mToday;
     }
 
-    public boolean ismFirstDayOfMonth() {
+    public boolean isFirstDayOfMonth() {
         return mFirstDayOfMonth;
     }
 
-    public void setmFirstDayOfMonth(boolean mFirstDayOfMonth) {
+    public void setFirstDayOfMonth(boolean mFirstDayOfMonth) {
         this.mFirstDayOfMonth = mFirstDayOfMonth;
     }
 
-    public boolean ismSelected() {
+    public boolean isSelected() {
         return mSelected;
     }
 
-    public void setmSelected(boolean mSelected) {
+    public void setSelected(boolean mSelected) {
         this.mSelected = mSelected;
     }
 
+    public String getMonth() {
+        return mMonth;
+    }
+
+    public void setMonth(String mMonth) {
+        this.mMonth = mMonth;
+    }
 }

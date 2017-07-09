@@ -1,12 +1,14 @@
 package com.zucc.zwy1317.myassistant.modle;
 
+import com.zucc.zwy1317.myassistant.modle.interfaces.DayOfData;
+
 /**
  * @description:
  * @author: eternallove
  * @date: 2017/7/3 15:24
  */
 
-public class RecordBean {
+public class RecordBean implements DayOfData{
     private String rID;
     private String mAmount;
     private long mTime;

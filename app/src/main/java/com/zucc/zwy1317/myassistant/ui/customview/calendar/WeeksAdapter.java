@@ -17,11 +17,9 @@ import com.zucc.zwy1317.myassistant.R;
 import com.zucc.zwy1317.myassistant.modle.DayItem;
 import com.zucc.zwy1317.myassistant.modle.WeekItem;
 import com.zucc.zwy1317.myassistant.util.BusProvider;
-import com.zucc.zwy1317.myassistant.util.CalendarManager;
 import com.zucc.zwy1317.myassistant.util.DateHelper;
 import com.zucc.zwy1317.myassistant.util.Events;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -174,13 +172,12 @@ public class WeeksAdapter extends RecyclerView.Adapter<WeeksAdapter.WeekViewHold
                 txtDay.setTypeface(null, Typeface.NORMAL);
                 txtMonth.setTypeface(null, Typeface.NORMAL);
 
-                // Display the day
                 // 为Day设置数值,即Value和View绑定
-                txtDay.setText(Integer.toString(dayItem.getValue()));
+                txtDay.setText(dayItem.getValue());
 
                 // Highlight first day of the month
                 // 每月的第一天高亮显示
-                if (dayItem.isFirstDayOfTheMonth() && !dayItem.isSelected()) {//是每月的第一天，且没有被选择
+                if (dayItem.isFirstDayOfMonth() && !dayItem.isSelected()) {//是每月的第一天，且没有被选择
                     txtMonth.setVisibility(View.VISIBLE);
                     txtMonth.setText(dayItem.getMonth());
                     //设置字体为粗体
@@ -216,20 +213,17 @@ public class WeeksAdapter extends RecyclerView.Adapter<WeeksAdapter.WeekViewHold
                         circleView.setBackgroundResource(R.drawable.other_color_circle);
                     }
                 }
+            }
+            if (weekItem.ismMiddleOfMonth()) {//为什么是15？因为在一个月的最中间的一星期显示
+                mTxtMonth.setVisibility(View.VISIBLE);
 
-                // Check if the month label has to be displayed
-                // 判断月份标签是否被显示了
-                if (dayItem.getValue() == 15) {//为什么是15？因为在一个月的最中间的一星期显示
-                    mTxtMonth.setVisibility(View.VISIBLE);
-                    SimpleDateFormat monthDateFormat = new SimpleDateFormat(mContext.getResources().getString(R.string.month_name_format), CalendarManager.getInstance().getLocale());
-                    String month = monthDateFormat.format(weekItem.getDate()).toUpperCase();
-                    //当前日期的年数不等于这个星期的年数，则需要在mTxtMonth上加上年份
-                    if (today.get(Calendar.YEAR) != weekItem.getYear()) {
-                        month = month + String.format(" %d", weekItem.getYear());
-                    }
-                    mTxtMonth.setText(month);
-                    BusProvider.getInstance().send(new Events.CalendarMonthEvent(month));
+                String month = weekItem.getLabel();
+                int year = today.get(Calendar.YEAR);
+                if ( year != weekItem.getYear()) {
+                    month += String.format(" %d", weekItem.getYear());
                 }
+                mTxtMonth.setText(month);
+                BusProvider.getInstance().send(new Events.CalendarMonthEvent(month));
             }
         }
 

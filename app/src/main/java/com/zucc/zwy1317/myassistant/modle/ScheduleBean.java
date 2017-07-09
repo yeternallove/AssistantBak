@@ -1,5 +1,7 @@
 package com.zucc.zwy1317.myassistant.modle;
 
+import com.zucc.zwy1317.myassistant.modle.interfaces.DayOfData;
+
 import java.util.Date;
 
 /**
@@ -8,7 +10,7 @@ import java.util.Date;
  * @date: 2017/7/3 15:24
  */
 
-public class ScheduleBean {
+public class ScheduleBean implements DayOfData{
 
     private String sID;
     private String mTitle;

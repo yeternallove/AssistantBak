@@ -10,7 +10,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.zucc.zwy1317.myassistant.R;
-import com.zucc.zwy1317.myassistant.modle.CalendarEventBean;
 import com.zucc.zwy1317.myassistant.modle.DayItem;
 import com.zucc.zwy1317.myassistant.modle.WeekItem;
 import com.zucc.zwy1317.myassistant.util.BusProvider;
@@ -318,7 +317,6 @@ public class CalendarView extends LinearLayout {
         Integer currentWeekIndex = null;
         Calendar scrollToCal = calendar;
 
-        // update highlighted/selected day
         if (!dayItem.equals(getSelectedDay())) {
             dayItem.setSelected(true);
             if (getSelectedDay() != null) {
@@ -335,8 +333,6 @@ public class CalendarView extends LinearLayout {
                 break;
             }
         }
-
-        System.out.println("currentWeekIndex=" + currentWeekIndex + ";mCurrentListPosition=" + mCurrentListPosition);
 
         if (currentWeekIndex != null) {
             // highlighted day has changed, update the rows concerned
