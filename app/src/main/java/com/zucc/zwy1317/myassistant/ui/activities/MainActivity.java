@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import com.zucc.zwy1317.myassistant.R;
 import com.zucc.zwy1317.myassistant.ui.base.*;
 import com.zucc.zwy1317.myassistant.ui.fragments.AccountFragment;
+import com.zucc.zwy1317.myassistant.ui.fragments.ScheduleFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,7 +41,7 @@ public class MainActivity extends BaseActivity
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.main_frameLayout_fragment,new AccountFragment())
+                .add(R.id.main_frameLayout_fragment,new ScheduleFragment())
                 .commit();
 
         navigationView.setNavigationItemSelectedListener(this);

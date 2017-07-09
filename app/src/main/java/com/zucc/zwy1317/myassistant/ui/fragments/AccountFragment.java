@@ -21,8 +21,8 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public View onCreateView(LayoutInflater inflater , @Nullable ViewGroup container,@Nullable Bundle savedInstanceState){
-//        View view = inflater.inflate(R.layout.ftagment_account,container,false);
-        View view = View.inflate(getContext(),R.layout.ftagment_account,null);
+//        View view = inflater.inflate(R.layout.fragment_account,container,false);
+        View view = View.inflate(getContext(),R.layout.fragment_account,null);
         ButterKnife.bind(this,view);
         return view;
     }
