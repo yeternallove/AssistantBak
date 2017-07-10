@@ -58,11 +58,6 @@ public class WeeksAdapter extends RecyclerView.Adapter<WeeksAdapter.WeekViewHold
         notifyDataSetChanged();
     }
 
-    // region Getters/setters
-
-    public List<WeekItem> getWeeksList() {
-        return mWeeksList;
-    }
 
     public boolean isDragging() {
         return mDragging;
@@ -91,7 +86,7 @@ public class WeeksAdapter extends RecyclerView.Adapter<WeeksAdapter.WeekViewHold
 
     @Override
     public WeekViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = layoutInflater.inflate(R.layout.item_calendar_list_week, parent, false);
+        View view = layoutInflater.inflate(R.layout.calendar_item_list_week, parent, false);
         return new WeekViewHolder(view);
     }
 
@@ -173,7 +168,7 @@ public class WeeksAdapter extends RecyclerView.Adapter<WeeksAdapter.WeekViewHold
                 txtMonth.setTypeface(null, Typeface.NORMAL);
 
                 // 为Day设置数值,即Value和View绑定
-                txtDay.setText(dayItem.getValue());
+                txtDay.setText(dayItem.getValue()+"");
 
                 // Highlight first day of the month
                 // 每月的第一天高亮显示

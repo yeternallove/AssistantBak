@@ -8,19 +8,19 @@
         android:layout_height="@dimen/calendar_header_height"
         android:orientation="horizontal">
 
-        <include layout="@layout/view_calendar_header" />
+        <include layout="@layout/calendar_view_header" />
 
-        <include layout="@layout/view_calendar_header" />
+        <include layout="@layout/calendar_view_header" />
 
-        <include layout="@layout/view_calendar_header" />
+        <include layout="@layout/calendar_view_header" />
 
-        <include layout="@layout/view_calendar_header" />
+        <include layout="@layout/calendar_view_header" />
 
-        <include layout="@layout/view_calendar_header" />
+        <include layout="@layout/calendar_view_header" />
 
-        <include layout="@layout/view_calendar_header" />
+        <include layout="@layout/calendar_view_header" />
 
-        <include layout="@layout/view_calendar_header" />
+        <include layout="@layout/calendar_view_header" />
 
     </LinearLayout>
 

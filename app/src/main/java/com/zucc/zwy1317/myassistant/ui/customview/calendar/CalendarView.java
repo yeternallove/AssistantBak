@@ -3,7 +3,6 @@ package com.zucc.zwy1317.myassistant.ui.customview.calendar;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
@@ -14,13 +13,11 @@ import com.zucc.zwy1317.myassistant.modle.DayItem;
 import com.zucc.zwy1317.myassistant.modle.WeekItem;
 import com.zucc.zwy1317.myassistant.util.BusProvider;
 import com.zucc.zwy1317.myassistant.util.CalendarManager;
-import com.zucc.zwy1317.myassistant.util.DateHelper;
 import com.zucc.zwy1317.myassistant.util.DateUtil;
 import com.zucc.zwy1317.myassistant.util.Events;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -30,8 +27,6 @@ import rx.functions.Action1;
  * Calendar View 是一个允许用户在 day 和 year 之间自由浏览的上下滑动的view
  */
 public class CalendarView extends LinearLayout {
-
-    private static final String LOG_TAG = CalendarView.class.getSimpleName();
 
     /**
      * calendar view 的顶部布局，显示星期名字
@@ -66,7 +61,7 @@ public class CalendarView extends LinearLayout {
         //引入布局文件
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        inflater.inflate(R.layout.view_calendar, this, true);
+        inflater.inflate(R.layout.calendar_view, this, true);
 
         //垂直线性布局
         setOrientation(VERTICAL);
@@ -140,7 +135,7 @@ public class CalendarView extends LinearLayout {
                             collapseCalendarView();
                         } else if (event instanceof Events.DayClickedEvent) {//日历 Day 的点击事件，点击改变高亮表示的Day
                             Events.DayClickedEvent clickedEvent = (Events.DayClickedEvent) event;
-                            updateSelectedDay(clickedEvent.getDate(),clickedEvent.getDay());
+                            updateSelectedDay(clickedEvent.getDay());
                         }
                     }
                     });
@@ -178,7 +173,7 @@ public class CalendarView extends LinearLayout {
     public void scrollToDate(final DayItem calendarEvent) {
         mListViewWeeks.post(new Runnable() {
             @Override
-            public void run() {scrollToPosition(updateSelectedDay(calendarEvent.getDate(),calendarEvent));
+            public void run() {scrollToPosition(updateSelectedDay(calendarEvent));
             }
         });
     }
@@ -235,14 +230,8 @@ public class CalendarView extends LinearLayout {
         weeksAdapter.notifyItemChanged(position);
     }
 
-    /**
-     * Creates a new adapter if necessary and sets up its parameters.
-     */
     private void setUpAdapter(Calendar today, List<WeekItem> weeks, int dayTextColor, int currentDayTextColor, int pastDayTextColor) {
         if (mWeeksAdapter == null) {
-            Log.d(LOG_TAG, "Setting adapter with today's calendar: " + today.toString());
-            System.out.println("Setting adapter with today's calendar: " + today.toString());
-            //
             mWeeksAdapter = new WeeksAdapter(getContext(), today, dayTextColor, currentDayTextColor, pastDayTextColor);
             mListViewWeeks.setAdapter(mWeeksAdapter);
         }
@@ -308,13 +297,12 @@ public class CalendarView extends LinearLayout {
      * day 点击事件，更新点中的day
      * Update a selected cell day item.
      *
-     * @param calendar The Calendar instance of the day selected.
      * @param dayItem  The DayItem information held by the cell item.
      * @return The selected row of the weeks list, to be updated.
      */
-    private int updateSelectedDay(Calendar calendar, DayItem dayItem) {
+    private int updateSelectedDay(DayItem dayItem) {
         Integer currentWeekIndex = null;
-        Calendar scrollToCal = calendar;
+        Calendar scrollToCal = dayItem.getDate();
 
         if (!dayItem.equals(getSelectedDay())) {
             dayItem.setSelected(true);
@@ -328,7 +316,6 @@ public class CalendarView extends LinearLayout {
         for (int c = 0; c < CalendarManager.getInstance().getWeeks().size(); c++) {
             if (DateUtil.sameWeek(scrollToCal, CalendarManager.getInstance().getWeeks().get(c))) {
                 currentWeekIndex = c;
-
                 break;
             }
         }

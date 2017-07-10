@@ -9,11 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.zucc.zwy1317.myassistant.R;
-import com.zucc.zwy1317.myassistant.modle.DayItem;
 import com.zucc.zwy1317.myassistant.modle.ScheduleBean;
 
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
@@ -35,6 +32,7 @@ public class AgendaAdapter extends BaseAdapter implements StickyListHeadersAdapt
         this.mContext = context;
         this.inflater = LayoutInflater.from(context);
         this.mData = data;
+        this.mCurrentDayColor = mContext.getResources().getColor(mCurrentDayColor);
     }
 
     public void updateEvents(List<ScheduleBean> data) {
@@ -68,7 +66,7 @@ public class AgendaAdapter extends BaseAdapter implements StickyListHeadersAdapt
 
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.agenda_view_event, parent, false);
+            convertView = inflater.inflate(R.layout.agenda_view_sss, parent, false);
             holder.tvEvent = (TextView) convertView.findViewById(R.id.tv_agenda_day_event);
             convertView.setTag(holder);
         } else {

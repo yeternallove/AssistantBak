@@ -9,7 +9,7 @@
     <!--account-->
     <dimen name="account_tv_title_height">24dp</dimen>
     <dimen name="account_imgBtn_size">100dp</dimen>
-    <dimen name="account_imgBtn_marginTop">40dp</dimen>
+    <dimen name="account_imgBtn_marginTop">70dp</dimen>
     <dimen name="account_item_height">64dp</dimen>
     <dimen name="account_item_img_size">32dp</dimen>
     <dimen name="account_item_tv_margin">10dp</dimen>

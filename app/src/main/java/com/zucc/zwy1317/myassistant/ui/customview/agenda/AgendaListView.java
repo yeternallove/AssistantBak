@@ -32,11 +32,6 @@ public class AgendaListView extends StickyListHeadersListView {
         super(context, attrs, defStyleAttr);
     }
 
-    /**
-     * 根据传入的日期使 ListView 滚到对应的日期
-     *
-     * @param today 传入的日期
-     */
     public void scrollToCurrentDate(Calendar today) {
         List<DayItem> days = CalendarManager.getInstance().getDays();
 
@@ -58,5 +53,4 @@ public class AgendaListView extends StickyListHeadersListView {
 
     }
 
-    // endregion
 }

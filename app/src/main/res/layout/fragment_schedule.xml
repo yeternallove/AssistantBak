@@ -3,11 +3,14 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <com.zucc.zwy1317.myassistant.ui.customview.calendar.CalendarView
+        android:id="@+id/test_calendar"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:visibility="visible" >
     </com.zucc.zwy1317.myassistant.ui.customview.calendar.CalendarView>
+
     <com.zucc.zwy1317.myassistant.ui.customview.agenda.AgendaView
+        android:id="@+id/test_agenda"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="visible">

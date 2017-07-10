@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import com.zucc.zwy1317.myassistant.R;
 import com.zucc.zwy1317.myassistant.ui.base.*;
 import com.zucc.zwy1317.myassistant.ui.fragments.AccountFragment;
+import com.zucc.zwy1317.myassistant.ui.fragments.HomePager;
 import com.zucc.zwy1317.myassistant.ui.fragments.ScheduleFragment;
 
 import butterknife.BindView;
@@ -41,7 +42,7 @@ public class MainActivity extends BaseActivity
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.main_frameLayout_fragment,new ScheduleFragment())
+                .add(R.id.main_frameLayout_fragment,new HomePager())
                 .commit();
 
         navigationView.setNavigationItemSelectedListener(this);
@@ -82,7 +83,7 @@ public class MainActivity extends BaseActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {

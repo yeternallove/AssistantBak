@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">PersonAssistant</string>
+
+    <!--MainActivity-->
+    <string name="main_drawer_nav_chat">Chat</string>
+    <string name="main_drawer_nav_account">Account</string>
+    <string name="main_drawer_nav_schedule">Schedule</string>
+    <string name="main_drawer_nav_other">Other</string>
+    <string name="main_drawer_nav_communicate">Communicate</string>
+
     <!-- Account -->
     <string name="title_account">Add the budget</string>
     <string name="tv_account_income">Income</string>

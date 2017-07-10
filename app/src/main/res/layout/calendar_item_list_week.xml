@@ -9,19 +9,19 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <include layout="@layout/item_calendar_list_day" />
+        <include layout="@layout/calendar_item_list_day" />
 
-        <include layout="@layout/item_calendar_list_day" />
+        <include layout="@layout/calendar_item_list_day" />
 
-        <include layout="@layout/item_calendar_list_day" />
+        <include layout="@layout/calendar_item_list_day" />
 
-        <include layout="@layout/item_calendar_list_day" />
+        <include layout="@layout/calendar_item_list_day" />
 
-        <include layout="@layout/item_calendar_list_day" />
+        <include layout="@layout/calendar_item_list_day" />
 
-        <include layout="@layout/item_calendar_list_day" />
+        <include layout="@layout/calendar_item_list_day" />
 
-        <include layout="@layout/item_calendar_list_day" />
+        <include layout="@layout/calendar_item_list_day" />
 
     </LinearLayout>
 

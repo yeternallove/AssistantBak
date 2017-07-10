@@ -1,5 +1,8 @@
 package com.zucc.zwy1317.myassistant.modle;
 
+import com.zucc.zwy1317.myassistant.ui.customview.calendar.CalendarView;
+
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -10,15 +13,15 @@ import java.util.List;
 public class WeekItem {
     private boolean mMiddleOfMonth;//月中显示月份标签（默认第15天）
     private String mLabel;
-    private int mWeekInYear;
-    private int mYear;
+    private int mWeekInYear;//一周中的第一天
+    private int mYear;//一周中的第一天
     private List<DayItem> mDayItems;
 
-    public WeekItem(boolean mMiddleOfMonth, String label,int year,int weekInYear) {
-        this.mMiddleOfMonth = mMiddleOfMonth;
-        this.mLabel = label;
-        this.mYear = year;
-        this.mWeekInYear = weekInYear;
+    public WeekItem(Calendar firstDayOfWeek) {
+        this.mMiddleOfMonth = false;
+        this.mLabel = null;
+        this.mYear = firstDayOfWeek.get(Calendar.YEAR);
+        this.mWeekInYear = firstDayOfWeek.get(Calendar.WEEK_OF_YEAR);
     }
 
     public boolean ismMiddleOfMonth() {

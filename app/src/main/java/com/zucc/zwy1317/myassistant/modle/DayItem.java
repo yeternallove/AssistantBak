@@ -19,15 +19,9 @@ public class DayItem implements Serializable {
     private boolean mSelected;//是否选中
     private String mMonth;//每个月第一天显示的
 
-
-    public DayItem(Calendar date,boolean today,boolean selected) {
-        this.mDate = date;
-        this.mToday = today;
-        this.mSelected = selected;
-    }
-
     public DayItem(Calendar calendar){
-        this.mDate = calendar;
+        this.mDate = Calendar.getInstance();
+        this.mDate.setTime(calendar.getTime());
         this.mValue = calendar.get(Calendar.DAY_OF_MONTH);
         this.mDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
         this.mToday = false;
@@ -40,24 +34,8 @@ public class DayItem implements Serializable {
         return mDate;
     }
 
-    public void setDate(Calendar mDate) {
-        this.mDate = mDate;
-    }
-
     public int getValue() {
         return mValue;
-    }
-
-    public void setValue(int mDayOfMonth) {
-        this.mValue = mDayOfMonth;
-    }
-
-    public int getDayOfWeek() {
-        return mDayOfWeek;
-    }
-
-    public void setDayOfWeek(int mDayOfWeek) {
-        this.mDayOfWeek = mDayOfWeek;
     }
 
     public boolean isToday() {
@@ -70,10 +48,6 @@ public class DayItem implements Serializable {
 
     public boolean isFirstDayOfMonth() {
         return mFirstDayOfMonth;
-    }
-
-    public void setFirstDayOfMonth(boolean mFirstDayOfMonth) {
-        this.mFirstDayOfMonth = mFirstDayOfMonth;
     }
 
     public boolean isSelected() {

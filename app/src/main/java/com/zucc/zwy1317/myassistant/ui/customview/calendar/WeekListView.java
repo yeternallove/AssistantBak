@@ -14,9 +14,6 @@ import com.zucc.zwy1317.myassistant.util.Events;
  */
 public class WeekListView extends RecyclerView {
 
-    /**
-     * 用户操作导致的滚动
-     */
     private boolean mUserScrolling = false;
 
     private boolean mScrolling = false;

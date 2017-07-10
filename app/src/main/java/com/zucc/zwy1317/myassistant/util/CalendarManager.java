@@ -20,7 +20,6 @@ import java.util.Locale;
  */
 public class CalendarManager {
 
-    private static final String LOG_TAG = CalendarManager.class.getSimpleName();
 
     private static CalendarManager mInstance;//单例模型
 
@@ -85,17 +84,11 @@ public class CalendarManager {
         return mDays;
     }
 
-    public void setDays(List<DayItem> mDays) {
-        this.mDays = mDays;
-    }
 
     public List<WeekItem> getWeeks() {
         return mWeeks;
     }
 
-    public void setWeeks(List<WeekItem> mWeeks) {
-        this.mWeeks = mWeeks;
-    }
 
     public List<ScheduleBean> getSchedules() {
         return mSchedules;
@@ -150,11 +143,11 @@ public class CalendarManager {
     }
 
     private WeekItem getWeekItem(Calendar startCal) {
-        WeekItem weekItem = new WeekItem(false,mMonthHalfNameFormat.format(startCal.getTime()),
-                startCal.get(Calendar.YEAR),startCal.get(Calendar.WEEK_OF_YEAR));
+
         Calendar cal = Calendar.getInstance(mLocale);
         cal.setTime(startCal.getTime());
         List<DayItem> dayItems = new ArrayList<>();
+        String strMouth ;
 
         int firstDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);//传入的这天在这一周中week的位置
         int offset = cal.getFirstDayOfWeek() - firstDayOfWeek;//这一周的第一天-传入的这天在这一周中week的位置
@@ -164,17 +157,20 @@ public class CalendarManager {
             offset -= 7;
         }
 
-        //补全偏移量
+        //补全偏移量 获得一周中的第一天 不同地区第一天不同
         cal.add(Calendar.DATE, offset);
+        WeekItem weekItem = new WeekItem(cal);
 
         //向DayBean中添加数据
         for (int c = 0; c < 7; c++) {
             DayItem dayItem = new DayItem(cal);
+            strMouth = mMonthHalfNameFormat.format(cal.getTime());
             dayItems.add(dayItem);
             if(dayItem.getValue() == 15){
                 weekItem.setMiddleOfMonth(true);
+                weekItem.setmLabel(strMouth);
             }
-            dayItem.setMonth(mMonthHalfNameFormat.format(dayItem.getDate()));
+            dayItem.setMonth(strMouth);
             if(DateUtil.sameCalendar(mToday,cal)){
                 dayItem.setToday(true);
             }

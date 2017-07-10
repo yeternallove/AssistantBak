@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">个人助理</string>
+
+    <!--MainActivity-->
+    <string name="main_drawer_nav_chat">聊天</string>
+    <string name="main_drawer_nav_account">记账</string>
+    <string name="main_drawer_nav_schedule">日程</string>
+    <string name="main_drawer_nav_other">其他</string>
+    <string name="main_drawer_nav_communicate">通讯</string>
+
     <!--account-->
     <string name="title_account">添加预算</string>
     <string name="tv_account_income">收入</string>

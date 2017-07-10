@@ -22,16 +22,9 @@ import rx.functions.Action1;
  */
 public class AgendaView extends FrameLayout {
 
-    /**
-     * 显示日程的 ListView
-     */
     public AgendaListView mAgendaListView;
-    /**
-     * 一个长方形的阴影，位于CalendarView下部
-     */
     private View mShadowView;
 
-    // region Constructors
 
     public AgendaView(Context context) {
         super(context);
@@ -44,10 +37,6 @@ public class AgendaView extends FrameLayout {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.agenda_view, this, true);
     }
-
-    // endregion
-
-    // region Class - View
 
     //当View中所有的子控件均被映射成xml后触发,及完成inflater之后
     //当View和它的所有子对象从XML中导入之后，调用此方法
@@ -77,10 +66,7 @@ public class AgendaView extends FrameLayout {
                             //日期与事件匹配完成
                             //日期事件匹配成功后,更新数据适配器
                             ((AgendaAdapter) getAgendaListView().getAdapter()).updateEvents(CalendarManager.getInstance().getSchedules());
-                            System.out.println("---onAgendaView---调用了updateEvents");
                             getAgendaListView().scrollToCurrentDate(CalendarManager.getInstance().getToday());
-
-
                         }
                     }
                 });
@@ -104,9 +90,6 @@ public class AgendaView extends FrameLayout {
         return super.dispatchTouchEvent(event);
     }
 
-    // endregion
-
-    // region Public methods
 
     /**
      * 得到 AgendaView 下的日程 View AgendaListView
