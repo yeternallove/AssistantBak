@@ -11,7 +11,7 @@ import java.util.Date;
  */
 public class DayItem implements Serializable {
 
-    private Date mDate; //日期
+    private Calendar mDate; //日期 年月日
     private int mValue; //相当于Day_OF_Month,一月中的第几天
     private int mDayOfWeek; //一个星期中的第几天
     private boolean mToday; //是否是今天
@@ -20,14 +20,14 @@ public class DayItem implements Serializable {
     private String mMonth;//每个月第一天显示的
 
 
-    public DayItem(Date date,boolean today,boolean selected) {
+    public DayItem(Calendar date,boolean today,boolean selected) {
         this.mDate = date;
         this.mToday = today;
         this.mSelected = selected;
     }
 
     public DayItem(Calendar calendar){
-        this.mDate = calendar.getTime();
+        this.mDate = calendar;
         this.mValue = calendar.get(Calendar.DAY_OF_MONTH);
         this.mDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
         this.mToday = false;
@@ -36,11 +36,11 @@ public class DayItem implements Serializable {
         this.mMonth = null;
     }
 
-    public Date getDate() {
+    public Calendar getDate() {
         return mDate;
     }
 
-    public void setDate(Date mDate) {
+    public void setDate(Calendar mDate) {
         this.mDate = mDate;
     }
 

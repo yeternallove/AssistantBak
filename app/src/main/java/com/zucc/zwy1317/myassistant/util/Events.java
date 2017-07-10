@@ -3,6 +3,7 @@ package com.zucc.zwy1317.myassistant.util;
 import com.zucc.zwy1317.myassistant.modle.DayItem;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Events emitted by the bus provider.
@@ -15,21 +16,19 @@ public class Events {
      */
     public static class DayClickedEvent {
 
-        public Calendar mCalendar;
-        public DayItem mDayItem;
+        private DayItem mDayItem;
+        private Calendar mDate;
 
         public DayClickedEvent(DayItem dayItem) {
-            this.mCalendar = Calendar.getInstance();
-            this.mCalendar.setTime(dayItem.getDate());
             this.mDayItem = dayItem;
-        }
-
-        public Calendar getCalendar() {
-            return mCalendar;
+            this.mDate = dayItem.getDate();
         }
 
         public DayItem getDay() {
             return mDayItem;
+        }
+        public Calendar getDate(){
+            return mDate;
         }
     }
 

@@ -1,7 +1,7 @@
 package com.zucc.zwy1317.myassistant.modle;
 
-import com.zucc.zwy1317.myassistant.modle.interfaces.DayOfData;
 
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -10,29 +10,44 @@ import java.util.Date;
  * @date: 2017/7/3 15:24
  */
 
-public class ScheduleBean implements DayOfData{
+public class ScheduleBean{
 
     private String sID;
     private String mTitle;
     private String mNote;
-    private Date date;
+    private Calendar date;
     private long mStartTime;
     private long mEndTime;
     private long mAlarmTime;
     private String mAlarmColor;
     private String mAlarmTonePath;
     private String uID;
-    public ScheduleBean(){}
+    private long HeadID;//分组头
+
+    public ScheduleBean(){
+        this.sID = null;
+        this.mTitle = null;
+        this.mNote = null;
+        this.date = null;
+        this.mStartTime = 0;
+        this.mEndTime = 0;
+        this.mAlarmTime = 0;
+        this.mAlarmColor = null;
+        this.mAlarmTonePath = null;
+        this.uID = null;
+        this.HeadID = 0;
+    }
     public ScheduleBean(String sID, String title, String note, long startTime, long endTime, long alarmTime, String alarmColor, String alarmTonePath, String uID){
         this.sID = sID;
         this.mTitle = title;
-        this.mNote = note;;
+        this.mNote = note;
         this.mStartTime = startTime;
         this.mEndTime = endTime;
         this.mAlarmTime = alarmTime;
         this.mAlarmColor = alarmColor;
         this.mAlarmTonePath = alarmTonePath;
         this.uID = uID;
+        this.date = null;
     }
 
     public String getsID() {
@@ -59,11 +74,12 @@ public class ScheduleBean implements DayOfData{
         this.mNote = mNote;
     }
 
-    public Date getDate() {
+    public Calendar getDate() {
+
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Calendar date) {
         this.date = date;
     }
 
@@ -113,5 +129,13 @@ public class ScheduleBean implements DayOfData{
 
     public void setuID(String uID) {
         this.uID = uID;
+    }
+
+    public long getHeadID() {
+        return HeadID;
+    }
+
+    public void setHeadID(long headID) {
+        HeadID = headID;
     }
 }

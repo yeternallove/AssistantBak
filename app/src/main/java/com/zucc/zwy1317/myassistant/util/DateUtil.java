@@ -3,6 +3,7 @@ package com.zucc.zwy1317.myassistant.util;
 import android.content.Context;
 
 import com.zucc.zwy1317.myassistant.R;
+import com.zucc.zwy1317.myassistant.modle.WeekItem;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -60,5 +61,9 @@ public class DateUtil {
         return  c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH)
                     && c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR)
                     && c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH);
+    }
+
+    public static boolean sameWeek(Calendar cal, WeekItem week) {
+        return ((int)cal.get(Calendar.WEEK_OF_YEAR) == week.getWeekInYear() && (int)cal.get(Calendar.YEAR) == week.getYear());
     }
 }

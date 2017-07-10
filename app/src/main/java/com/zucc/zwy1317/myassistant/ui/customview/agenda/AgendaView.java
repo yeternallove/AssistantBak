@@ -69,21 +69,18 @@ public class AgendaView extends FrameLayout {
                             //Day日期点击事件
                             Events.DayClickedEvent clickedEvent = (Events.DayClickedEvent) event;
                             //通过在Calendar上点击日期,下边的ListView滚动到正确匹配的日期
-                            getAgendaListView().scrollToCurrentDate(clickedEvent.getCalendar());
+                            getAgendaListView().scrollToCurrentDate(clickedEvent.getDate());
                         } else if (event instanceof Events.CalendarScrolledEvent) {
                             //CalendarView 日历滑动事件
                             translateList(1);
                         } else if (event instanceof Events.EventsFetched) {
                             //日期与事件匹配完成
                             //日期事件匹配成功后,更新数据适配器
-                            ((AgendaAdapter) getAgendaListView().getAdapter()).updateEvents(CalendarManager.getInstance().getEvents());
+                            ((AgendaAdapter) getAgendaListView().getAdapter()).updateEvents(CalendarManager.getInstance().getSchedules());
                             System.out.println("---onAgendaView---调用了updateEvents");
                             getAgendaListView().scrollToCurrentDate(CalendarManager.getInstance().getToday());
 
 
-                        } else if (event instanceof Events.ForecastFetched) {
-                            //应该是完成天气预报匹配后,刷新数据
-                            ((AgendaAdapter) getAgendaListView().getAdapter()).updateEvents(CalendarManager.getInstance().getEvents());
                         }
                     }
                 });

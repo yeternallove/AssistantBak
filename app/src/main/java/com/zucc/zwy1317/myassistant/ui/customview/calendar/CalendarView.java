@@ -15,10 +15,12 @@ import com.zucc.zwy1317.myassistant.modle.WeekItem;
 import com.zucc.zwy1317.myassistant.util.BusProvider;
 import com.zucc.zwy1317.myassistant.util.CalendarManager;
 import com.zucc.zwy1317.myassistant.util.DateHelper;
+import com.zucc.zwy1317.myassistant.util.DateUtil;
 import com.zucc.zwy1317.myassistant.util.Events;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -138,15 +140,12 @@ public class CalendarView extends LinearLayout {
                             collapseCalendarView();
                         } else if (event instanceof Events.DayClickedEvent) {//日历 Day 的点击事件，点击改变高亮表示的Day
                             Events.DayClickedEvent clickedEvent = (Events.DayClickedEvent) event;
-                            updateSelectedDay(clickedEvent.getCalendar(), clickedEvent.getDay());
+                            updateSelectedDay(clickedEvent.getDate(),clickedEvent.getDay());
                         }
                     }
                     });
     }
 
-    // endregion
-
-    // region Public methods
 
     /**
      * 初始化 Calendar View WeekItem数据与view绑定
@@ -176,10 +175,10 @@ public class CalendarView extends LinearLayout {
      *
      * @param calendarEvent The event for the selected position in the agenda listview.
      */
-    public void scrollToDate(final CalendarEventBean calendarEvent) {
+    public void scrollToDate(final DayItem calendarEvent) {
         mListViewWeeks.post(new Runnable() {
             @Override
-            public void run() {scrollToPosition(updateSelectedDay(calendarEvent.getInstanceDay(), calendarEvent.getDayReference()));
+            public void run() {scrollToPosition(updateSelectedDay(calendarEvent.getDate(),calendarEvent));
             }
         });
     }
@@ -195,7 +194,7 @@ public class CalendarView extends LinearLayout {
         Calendar scrollToCal = today;
 
         for (int c = 0; c < weeks.size(); c++) {
-            if (DateHelper.sameWeek(scrollToCal, weeks.get(c))) {
+            if (DateUtil.sameWeek(scrollToCal, weeks.get(c))) {
                 currentWeekIndex = c;
                 break;
             }
@@ -327,7 +326,7 @@ public class CalendarView extends LinearLayout {
 
         //循环 得出被选中的日期在哪个星期中
         for (int c = 0; c < CalendarManager.getInstance().getWeeks().size(); c++) {
-            if (DateHelper.sameWeek(scrollToCal, CalendarManager.getInstance().getWeeks().get(c))) {
+            if (DateUtil.sameWeek(scrollToCal, CalendarManager.getInstance().getWeeks().get(c))) {
                 currentWeekIndex = c;
 
                 break;

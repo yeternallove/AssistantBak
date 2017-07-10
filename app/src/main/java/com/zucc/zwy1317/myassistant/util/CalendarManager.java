@@ -3,10 +3,9 @@ package com.zucc.zwy1317.myassistant.util;
 import android.content.Context;
 
 import com.zucc.zwy1317.myassistant.R;
-import com.zucc.zwy1317.myassistant.modle.DayAndData;
 import com.zucc.zwy1317.myassistant.modle.DayItem;
+import com.zucc.zwy1317.myassistant.modle.ScheduleBean;
 import com.zucc.zwy1317.myassistant.modle.WeekItem;
-import com.zucc.zwy1317.myassistant.modle.interfaces.DayOfData;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class CalendarManager {
 
     private List<DayItem> mDays = new ArrayList<>();
     private List<WeekItem> mWeeks = new ArrayList<>();
-    private HashMap<Date,List<DayOfData>> mData = new HashMap<>();
+    private List<ScheduleBean> mSchedules = new ArrayList<>();
 
     private Calendar mWeekCounter;
 
@@ -82,24 +81,12 @@ public class CalendarManager {
         return mWeekdayFormatter;
     }
 
-    public void setWeekdayFormatter(SimpleDateFormat mWeekdayFormatter) {
-        this.mWeekdayFormatter = mWeekdayFormatter;
+    public List<DayItem> getDays() {
+        return mDays;
     }
 
-    public SimpleDateFormat getMonthHalfNameFormat() {
-        return mMonthHalfNameFormat;
-    }
-
-    public void setMonthHalfNameFormat(SimpleDateFormat mMonthHalfNameFormat) {
-        this.mMonthHalfNameFormat = mMonthHalfNameFormat;
-    }
-
-    public SimpleDateFormat getMonthDateFormat() {
-        return mMonthDateFormat;
-    }
-
-    public void setMonthDateFormat(SimpleDateFormat mMonthDateFormat) {
-        this.mMonthDateFormat = mMonthDateFormat;
+    public void setDays(List<DayItem> mDays) {
+        this.mDays = mDays;
     }
 
     public List<WeekItem> getWeeks() {
@@ -108,6 +95,14 @@ public class CalendarManager {
 
     public void setWeeks(List<WeekItem> mWeeks) {
         this.mWeeks = mWeeks;
+    }
+
+    public List<ScheduleBean> getSchedules() {
+        return mSchedules;
+    }
+
+    public void setSchedules(List<ScheduleBean> mSchedules) {
+        this.mSchedules = mSchedules;
     }
 
     public void buildCal(Calendar minDate, Calendar maxDate, Locale locale) {//时间段以月为最小单位
@@ -128,7 +123,7 @@ public class CalendarManager {
 
         mDays.clear();
         mWeeks.clear();
-        mData.clear();
+        mSchedules.clear();
 
         Calendar mMaxCal = Calendar.getInstance(mLocale);
         mWeekCounter = Calendar.getInstance(mLocale);
@@ -146,26 +141,20 @@ public class CalendarManager {
         while ((mWeekCounter.get(Calendar.YEAR) < maxYear
                 || mWeekCounter.get(Calendar.MONTH) <= maxMonth)
                 && mWeekCounter.get(Calendar.YEAR) < maxYear + 1) {
-
-            WeekItem weekItem = new WeekItem(false,mMonthHalfNameFormat.format(mWeekCounter.getTime()),mWeekCounter.get(Calendar.YEAR));
-            if(getDayCells(mWeekCounter)){
-                weekItem.setMiddleOfMonth(true);
-            }
-            weekItem.setDayItems(mDays);
+            WeekItem weekItem = getWeekItem(mWeekCounter);
             mWeeks.add(weekItem);
 
             //加1周，循环
             mWeekCounter.add(Calendar.WEEK_OF_YEAR, 1);
         }
-
-
     }
 
-    private boolean getDayCells(Calendar startCal) {
+    private WeekItem getWeekItem(Calendar startCal) {
+        WeekItem weekItem = new WeekItem(false,mMonthHalfNameFormat.format(startCal.getTime()),
+                startCal.get(Calendar.YEAR),startCal.get(Calendar.WEEK_OF_YEAR));
         Calendar cal = Calendar.getInstance(mLocale);
         cal.setTime(startCal.getTime());
         List<DayItem> dayItems = new ArrayList<>();
-        boolean is = false;
 
         int firstDayOfWeek = cal.get(Calendar.DAY_OF_WEEK);//传入的这天在这一周中week的位置
         int offset = cal.getFirstDayOfWeek() - firstDayOfWeek;//这一周的第一天-传入的这天在这一周中week的位置
@@ -183,7 +172,7 @@ public class CalendarManager {
             DayItem dayItem = new DayItem(cal);
             dayItems.add(dayItem);
             if(dayItem.getValue() == 15){
-                is = true;
+                weekItem.setMiddleOfMonth(true);
             }
             dayItem.setMonth(mMonthHalfNameFormat.format(dayItem.getDate()));
             if(DateUtil.sameCalendar(mToday,cal)){
@@ -191,19 +180,38 @@ public class CalendarManager {
             }
             cal.add(Calendar.DATE, 1);
         }
-        mDays = dayItems;
-        return is;
+        weekItem.setDayItems(dayItems);
+        mDays.addAll(dayItems);
+        return weekItem;
     }
 
-    public void loadData(List<DayAndData> list) {
-        DayAndData data ;
-        for(int i =0; i < list.size(); i++){
-            data = list.get(i);
-            mData.put(data.getDate(),data.getDayOfData());
+    public void loadData(List<ScheduleBean> list) {
+        List<DayItem> days = getDays();
+        int daysSize = days.size();
+        List<ScheduleBean> scheduleList = new ArrayList<>();
+        ScheduleBean scheduleNull = new ScheduleBean();
+        ScheduleBean scheduleBean;
+        int i = 0, j = 0;
+        while(i < daysSize && j < list.size()){
+            if(DateUtil.sameCalendar(days.get(i).getDate(),list.get(j).getDate())){
+                scheduleBean = list.get(j);
+                scheduleBean.setHeadID(i);
+                scheduleList.add(scheduleBean);
+                j++;
+            }else{
+                scheduleNull.setHeadID(i);
+                scheduleList.add(scheduleNull);
+                i++;
+            }
         }
+        while(i < daysSize){
+            scheduleNull.setHeadID(i);
+            scheduleList.add(scheduleNull);
+            i++;
+        }
+        setSchedules(scheduleList);
         //发送消息，EventsFetched 暂时理解为 事件与日期匹配
         BusProvider.getInstance().send(new Events.EventsFetched());
-
     }
 
 }
