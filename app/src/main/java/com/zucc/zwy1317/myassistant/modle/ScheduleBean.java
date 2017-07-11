@@ -37,6 +37,10 @@ public class ScheduleBean{
         this.uID = null;
         this.HeadID = 0;
     }
+    public ScheduleBean(long headID){
+        this();
+        setHeadID(headID);
+    }
     public ScheduleBean(String sID, String title, String note, long startTime, long endTime, long alarmTime, String alarmColor, String alarmTonePath, String uID){
         this.sID = sID;
         this.mTitle = title;

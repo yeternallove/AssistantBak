@@ -42,7 +42,6 @@ public class AgendaListView extends StickyListHeadersListView {
                 break;
             }
         }
-
         final int finalToIndex = toIndex;
         post(new Runnable() {
             @Override

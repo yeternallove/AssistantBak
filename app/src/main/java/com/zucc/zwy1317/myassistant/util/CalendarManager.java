@@ -185,7 +185,6 @@ public class CalendarManager {
         List<DayItem> days = getDays();
         int daysSize = days.size();
         List<ScheduleBean> scheduleList = new ArrayList<>();
-        ScheduleBean scheduleNull = new ScheduleBean();
         ScheduleBean scheduleBean;
         int i = 0, j = 0;
         while(i < daysSize && j < list.size()){
@@ -195,14 +194,12 @@ public class CalendarManager {
                 scheduleList.add(scheduleBean);
                 j++;
             }else{
-                scheduleNull.setHeadID(i);
-                scheduleList.add(scheduleNull);
+                scheduleList.add(new ScheduleBean(i));
                 i++;
             }
         }
         while(i < daysSize){
-            scheduleNull.setHeadID(i);
-            scheduleList.add(scheduleNull);
+            scheduleList.add(new ScheduleBean(i));
             i++;
         }
         setSchedules(scheduleList);

@@ -72,7 +72,7 @@ public class AgendaAdapter extends BaseAdapter implements StickyListHeadersAdapt
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-
+        holder.tvEvent.setText(position+"");
         return convertView;
     }
 
@@ -89,7 +89,7 @@ public class AgendaAdapter extends BaseAdapter implements StickyListHeadersAdapt
         } else {
             holder = (HeaderViewHolder) convertView.getTag();
         }
-
+        holder.tvHeadDay.setText(mData.get(position).getHeadID()+"");
         return convertView;
     }
 

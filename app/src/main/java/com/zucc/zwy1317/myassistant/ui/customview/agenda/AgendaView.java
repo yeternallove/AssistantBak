@@ -107,8 +107,6 @@ public class AgendaView extends FrameLayout {
      */
     public void translateList(final int targetY) {
         if (targetY != getTranslationY()) {
-            System.out.println("getTranslationY=" + getTranslationY());
-            System.out.println("targetY=" + targetY);
             //属性动画,通过修改view的属性达到动画的效果
             ObjectAnimator mover = ObjectAnimator.ofFloat(this, "translationY", targetY);
             mover.setDuration(150);
