@@ -46,7 +46,15 @@ public class AssistantOpenHelper extends SQLiteOpenHelper {
             + "isIncome boolean,"       //是不是进账
             + "title varchar(20),"      //标签
             + "note text,"
+            + "location text,"
+            + "photo text,"
             + "uID varchar(20))";
+
+    private static final String CREATE_ICON = "create table Icon("
+            + "iID integer primary key autoincrement,"
+            + "title varchar(20),"
+            + "color text,"
+            + "icon text)";
 
 
     public AssistantOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -59,6 +67,7 @@ public class AssistantOpenHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_SCHEDULE);
         db.execSQL(CREATE_CHATS);
         db.execSQL(CREATE_RECORD);
+        db.execSQL(CREATE_ICON);
     }
 
     @Override
@@ -67,6 +76,7 @@ public class AssistantOpenHelper extends SQLiteOpenHelper {
         db.execSQL("drop table if exists Schedule");
         db.execSQL("drop table if exists Chats");
         db.execSQL("drop table if exists Record");
+        db.execSQL("drop table if exists Icon");
         onCreate(db);
     }
 }

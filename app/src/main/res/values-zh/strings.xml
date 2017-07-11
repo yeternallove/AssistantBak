@@ -19,4 +19,7 @@
     <string name="weeks_ago">{count} 周前</string>
     <string name="months_ago">{count} 月前</string>
     <string name="years_ago">{count} 年前</string>
+
+
+
 </resources>

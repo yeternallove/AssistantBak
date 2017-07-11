@@ -1,6 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/acc_add_appbarlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-</LinearLayout>
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/acc_add_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+            <ImageButton
+                android:id="@+id/acc_add_imgbtn_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:background="@drawable/ic_left_back"
+                android:layout_margin="@dimen/icon_margin"/>
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="40dp"
+        android:layout_below="@+id/acc_add_appbarlayout"
+        android:layout_alignBottom="@+id/acc_add_btn_save"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+            <android.support.design.widget.TabLayout
+                android:id="@+id/acc_add_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabIndicatorColor="@color/colorPrimary"
+                app:tabSelectedTextColor="@color/colorAccent"
+                app:tabTextColor="@color/colorPrimary" />
+            <android.support.v4.view.ViewPager
+                android:id="@+id/acc_add_vp"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="700dp"
+                android:background="@color/calendar_agendaHead_current_color">
+
+            </View>
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/acc_add_btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="baocun"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.zucc.zwy1317.myassistant.R;
+import com.zucc.zwy1317.myassistant.modle.RecordBean;
 import com.zucc.zwy1317.myassistant.modle.UserBean;
 
 import java.util.ArrayList;
@@ -52,6 +54,71 @@ public class AssistantDB {
         }
         db.execSQL(sql_i, new Object[]{userBean.getuID(), userBean.getmQQ(), userBean.getmEmal(),
                 userBean.getmNickname(), userBean.getmPwd(), userBean.getmAvatar(), userBean.getmData()});
+    }
+
+    public void saveRecord(RecordBean recordBean){
+        final String sql_s = "SELECT * FROM Record WHERE rID = ? ";//select
+        final String sql_i = "INSERT INTO Record(rID,amount,time,isIncome,title,note,uID) VALUES(?,?,?,?,?,?,?)";//insert
+        Cursor c = db.rawQuery(sql_s, new String[]{recordBean.getrID()});
+        if (c.moveToFirst()) {
+            c.close();
+            return;
+        }
+        db.execSQL(sql_i, new Object[]{recordBean.getrID(), recordBean.getmAmount(), recordBean.getmTime(),
+                recordBean.getMisIncome(), recordBean.getmTitle(), recordBean.getmNote(), recordBean.getuID()});
+
+    }
+
+    public boolean deleteRecord(String rID){
+        final String sql_s = "SELECT * FROM Record WHERE rID = ?";
+        final String sql_d = "DELETE FROM Record WHERE rID = ?";
+        Cursor c = db.rawQuery(sql_s, new String[]{rID});
+        if (!c.moveToFirst()) {
+            return false;
+        }
+        c.close();
+        db.execSQL(sql_d, new Object[]{rID});
+        return true;
+    }
+
+    public boolean updateRecord(RecordBean recordBean){
+        final String sql = "UPDATE Record " +
+                "SET rID = ?, amount = ?, time = ?, isIncome = ?, title = ?, note = ?, uID = ? " +
+                "WHERE rID = ?; ";
+        try {
+            db.execSQL(sql, new Object[]{recordBean.getrID(), recordBean.getmAmount(), recordBean.getmTime(),
+                    recordBean.getMisIncome(), recordBean.getmTitle(), recordBean.getmNote(), recordBean.getuID(),recordBean.getrID()});
+        } catch (Error e) {
+            return false;
+        }
+        return true;
+    }
+
+    public RecordBean queryRecord(String rID){
+        RecordBean recordBean = new RecordBean();
+        return recordBean;
+    }
+
+    public List<RecordBean> loadRecordAll(String uID){
+        final String sql = "SELECT rID,amount,time,isIncome,title,note,location,photo,uID FROM Record WHERE uID = ?";
+        List<RecordBean> recordList = new ArrayList<>();
+        RecordBean recordBean;
+        Cursor c = db.rawQuery(sql,new String[]{uID});
+        while (c.moveToNext()){
+            recordBean = new RecordBean();
+            recordBean.setrID(c.getString(0));
+            recordBean.setmAmount(c.getString(1));
+            recordBean.setmTime(c.getLong(2));
+            recordBean.setMisIncome(c.getString(3));
+            recordBean.setmTitle(c.getString(4));
+            recordBean.setmNote(c.getString(5));
+            recordBean.setLocation(c.getString(6));
+            recordBean.setPhoto(c.getString(7));
+            recordBean.setuID(c.getString(8));
+            recordList.add(recordBean);
+        }
+        c.close();
+        return recordList;
     }
 
 //    /**

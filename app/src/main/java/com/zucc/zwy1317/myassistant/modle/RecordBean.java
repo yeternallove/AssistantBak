@@ -14,17 +14,21 @@ public class RecordBean {
     private Boolean misIncome;
     private String mTitle; //标签比如花钱·餐饮
     private String mNote;
+    private String location;
+    private String photo;
     private String uID;
 
     public RecordBean(){}
 
-    public RecordBean( String rID, String amount,long time, Boolean isIncome,String title, String note,String uID){
+    public RecordBean( String rID, String amount,long time, Boolean isIncome,String title, String note,String location,String photo,String uID){
         this.rID = rID;
         this.mAmount = amount;
         this.mTime = time;
         this.misIncome = isIncome;
         this.mTitle = title;
         this.mNote = note;
+        this.location = location;
+        this.photo = photo;
         this.uID = uID;
     }
 
@@ -60,6 +64,14 @@ public class RecordBean {
         this.misIncome = misIncome;
     }
 
+    public void setMisIncome(String misIncome){
+        if(misIncome.equals("true")){
+            this.misIncome = true;
+        }else{
+            this.misIncome = false;
+        }
+    }
+
     public String getmTitle() {
         return mTitle;
     }
@@ -82,5 +94,21 @@ public class RecordBean {
 
     public void setuID(String uID) {
         this.uID = uID;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

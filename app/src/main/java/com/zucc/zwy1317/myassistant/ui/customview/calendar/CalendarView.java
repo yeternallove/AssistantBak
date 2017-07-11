@@ -269,7 +269,6 @@ public class CalendarView extends LinearLayout {
         for (int i = 0; i < mDayNamesHeader.getChildCount(); i++) {
             TextView txtDay = (TextView) mDayNamesHeader.getChildAt(i);
             txtDay.setText(dayLabels[i]);
-            System.out.println("按顺序显示:" + dayLabels[i]);
         }
     }
 

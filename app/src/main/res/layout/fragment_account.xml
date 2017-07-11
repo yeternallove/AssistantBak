@@ -5,7 +5,7 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/acc_appbarlayout"
+        android:id="@+id/acc_add_appbarlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -95,6 +95,6 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/acc_appbarlayout">
+        android:layout_below="@+id/acc_add_appbarlayout">
     </android.support.v7.widget.RecyclerView>
 </RelativeLayout>
