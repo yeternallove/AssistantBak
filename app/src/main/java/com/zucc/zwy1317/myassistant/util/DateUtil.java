@@ -33,13 +33,17 @@ public class DateUtil {
         long now = System.currentTimeMillis();
         long offset = now - last;
         if (offset <= DAY) {
-            if(offset <= HOUR){
-                return context.getString(R.string.minutes_ago)
-                        .replace(COUNT_REPLACEMENT, String.valueOf(offset / MINUTE));
-            } else{
-                return context.getString(R.string.hours_ago)
-                        .replace(COUNT_REPLACEMENT, String.valueOf(offset / HOUR));
-            }
+//            if(offset <= MINUTE){
+//                return context.getString(R.string.just_now);
+//            }
+//            else if(offset <= HOUR){
+//                return context.getString(R.string.minutes_ago)
+//                        .replace(COUNT_REPLACEMENT, String.valueOf(offset / HOUR));
+//            } else{
+//                return context.getString(R.string.hours_ago)
+//                        .replace(COUNT_REPLACEMENT, String.valueOf(offset / HOUR));
+//            }
+            return context.getResources().getString(R.string.today);
         } else if (offset <= DAY * 2) {
             return context.getString(R.string.yesterday);
         } else if (offset <= WEEK) {
@@ -57,7 +61,7 @@ public class DateUtil {
         }
     }
 
-    public static boolean sameCalendar(Calendar c1,Calendar c2){
+    public static boolean sameDay(Calendar c1, Calendar c2){
         return  c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH)
                     && c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR)
                     && c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH);

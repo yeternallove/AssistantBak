@@ -9,7 +9,6 @@ import com.zucc.zwy1317.myassistant.util.CalendarManager;
 import com.zucc.zwy1317.myassistant.util.DateUtil;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
@@ -37,7 +36,7 @@ public class AgendaListView extends StickyListHeadersListView {
 
         int toIndex = 0;
         for (int i = 0; i < days.size(); i++) {
-            if (DateUtil.sameCalendar(today,days.get(i).getDate())) {
+            if (DateUtil.sameDay(today,days.get(i).getDate())) {
                 toIndex = i;
                 break;
             }

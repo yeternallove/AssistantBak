@@ -1,6 +1,10 @@
 package com.zucc.zwy1317.myassistant.modle;
 
 
+import android.content.Context;
+
+import com.zucc.zwy1317.myassistant.util.DateUtil;
+
 /**
  * @description:
  * @author: eternallove
@@ -8,10 +12,11 @@ package com.zucc.zwy1317.myassistant.modle;
  */
 
 public class RecordBean {
+
     private String rID;
-    private String mAmount;
+    private double mAmount;
     private long mTime;
-    private Boolean misIncome;
+    private int mType;
     private String mTitle; //标签比如花钱·餐饮
     private String mNote;
     private String location;
@@ -20,16 +25,38 @@ public class RecordBean {
 
     public RecordBean(){}
 
-    public RecordBean( String rID, String amount,long time, Boolean isIncome,String title, String note,String location,String photo,String uID){
+    public RecordBean(String uID){
+        this.uID = uID;
+        this.rID = null;
+        this.mType = TypeIconBean.TYPE_NULL;
+    }
+    public RecordBean(long time, double amount, Context context){
+        this.mType = TypeIconBean.TYPE_NULL;
+        this.mTime = time;
+        this.mAmount = amount;
+        this.mTitle = DateUtil.getDateString(context,this.mTime);
+    }
+    public RecordBean( String rID, double amount,long time,int type,String title, String note,String location,String photo,String uID){
         this.rID = rID;
         this.mAmount = amount;
         this.mTime = time;
-        this.misIncome = isIncome;
+        this.mType = type;
         this.mTitle = title;
         this.mNote = note;
         this.location = location;
         this.photo = photo;
         this.uID = uID;
+    }
+
+    public RecordBean bindID(){
+        this.rID = String.format("%s%d",this.getuID(),this.getmTime());
+        return this;
+    }
+
+    public double getNum(){
+        if(this.getType() == TypeIconBean.TYPE_INCOME)
+            return this.getmAmount();
+        else return this.getmAmount()*-1;
     }
 
     public String getrID() {
@@ -40,11 +67,11 @@ public class RecordBean {
         this.rID = rID;
     }
 
-    public String getmAmount() {
+    public double getmAmount() {
         return mAmount;
     }
 
-    public void setmAmount(String mAmount) {
+    public void setmAmount(double mAmount) {
         this.mAmount = mAmount;
     }
 
@@ -56,27 +83,19 @@ public class RecordBean {
         this.mTime = mTime;
     }
 
-    public Boolean getMisIncome() {
-        return misIncome;
+    public int getType() {
+        return mType;
     }
 
-    public void setMisIncome(Boolean misIncome) {
-        this.misIncome = misIncome;
+    public void setType(int mType) {
+        this.mType = mType;
     }
 
-    public void setMisIncome(String misIncome){
-        if(misIncome.equals("true")){
-            this.misIncome = true;
-        }else{
-            this.misIncome = false;
-        }
-    }
-
-    public String getmTitle() {
+    public String getTitle() {
         return mTitle;
     }
 
-    public void setmTitle(String mTitle) {
+    public void setTitle(String mTitle) {
         this.mTitle = mTitle;
     }
 

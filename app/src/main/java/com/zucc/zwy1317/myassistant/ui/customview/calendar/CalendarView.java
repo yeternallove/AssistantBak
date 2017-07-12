@@ -294,9 +294,9 @@ public class CalendarView extends LinearLayout {
 
     /**
      * day 点击事件，更新点中的day
-     * Update a selected cell day item.
+     * Update a selected cell day item_typeicon.
      *
-     * @param dayItem  The DayItem information held by the cell item.
+     * @param dayItem  The DayItem information held by the cell item_typeicon.
      * @return The selected row of the weeks list, to be updated.
      */
     private int updateSelectedDay(DayItem dayItem) {

@@ -10,11 +10,12 @@ import android.widget.TextView;
 
 import com.zucc.zwy1317.myassistant.R;
 import com.zucc.zwy1317.myassistant.modle.RecordBean;
+import com.zucc.zwy1317.myassistant.modle.TypeIconBean;
 import com.zucc.zwy1317.myassistant.util.DateUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,35 +29,52 @@ import butterknife.ButterKnife;
 public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountViewHolder> {
     private Context mContext;
     private List<RecordBean> mData = new ArrayList<>();
-    private List<ItemRecord> mList = new ArrayList<>();
+    private HashMap<String,TypeIconBean> map = new HashMap<>();
 
-    public AccountAdapter(Context context) {
-        mContext = context;
+    public AccountAdapter(Context context , List<RecordBean> data, HashMap<String,TypeIconBean> map) {
+        this.mContext = context;
+        this.mData = data;
+        this.map = map;
     }
 
-    public void setData(List<RecordBean> data) {
+    public void updateData(List<RecordBean> data) {
         mData = data;
-
         notifyDataSetChanged();
     }
+    public void updateTypeIcon(HashMap<String,TypeIconBean> map){
+        this.map = map;
+    }
+
 
     @Override
     public AccountViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new AccountViewHolder(LayoutInflater.from(mContext)
-                .inflate(R.layout.item_account_income, parent, false));
+                .inflate(R.layout.item_account, parent, false));
     }
 
     @Override
     public void onBindViewHolder(AccountViewHolder holder, int position) {
         RecordBean recordBean = mData.get(position);
-        if(recordBean.getMisIncome() == null){
-            holder.mTvIncome.setText(DateUtil.getDateString(mContext,recordBean.getmTime()));
+        if(position + 1 == getItemCount()){
+            holder.mView.setVisibility(View.GONE);
+        }else{
+            holder.mView.setVisibility(View.VISIBLE);
         }
-        else if(recordBean.getMisIncome()){
-            holder.mTvIncome.setText(recordBean.getmTitle()+recordBean.getmAmount()+"");
+        holder.mTvIncome.setVisibility(View.VISIBLE);
+        holder.mTvSpending.setVisibility(View.VISIBLE);
+        if(recordBean.getType() == TypeIconBean.TYPE_NULL){
+            holder.mTvIncome.setText(recordBean.getTitle());
+            holder.mTvSpending.setText(String.format("%.2f",recordBean.getmAmount()));
         }
-        else {
-            holder.mTvSpending.setText(recordBean.getmTitle()+recordBean.getmAmount()+"");
+        else if(recordBean.getType() == TypeIconBean.TYPE_INCOME){
+            holder.mTvIncome.setText(String.format("%s%.2f",recordBean.getTitle(),recordBean.getmAmount()));
+            holder.mTvSpending.setVisibility(View.GONE);
+            holder.mImageView.setImageResource(map.get(recordBean.getTitle()).getIcon());
+        }
+        else if(recordBean.getType() == TypeIconBean.TYPE_SPENDING){
+            holder.mTvIncome.setVisibility(View.GONE);
+            holder.mTvSpending.setText(String.format("%s%.2f",recordBean.getTitle(),recordBean.getmAmount()));
+            holder.mImageView.setImageResource(map.get(recordBean.getTitle()).getIcon());
         }
 
     }
@@ -67,17 +85,6 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
         return mData.size();
     }
 
-    private class ItemRecord extends RecordBean{
-        private boolean isHead;
-
-        public boolean isHead() {
-            return isHead;
-        }
-
-        public void setHead(boolean head) {
-            isHead = head;
-        }
-    }
     static class AccountViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.item_account_tv_income)
@@ -86,6 +93,8 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
         TextView mTvSpending;
         @BindView(R.id.item_account_iv)
         ImageView mImageView;
+        @BindView(R.id.item_account_view_bottom)
+        View mView;
         public AccountViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);

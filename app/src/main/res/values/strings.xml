@@ -7,6 +7,7 @@
     <string name="main_drawer_nav_schedule">Schedule</string>
     <string name="main_drawer_nav_other">Other</string>
     <string name="main_drawer_nav_communicate">Communicate</string>
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 
     <!-- Account -->
     <string name="title_account">Add the budget</string>
@@ -14,23 +15,30 @@
     <string name="tv_account_spending">Spending</string>
     <string name="today">Today</string>
     <string name="yesterday">Yesterday</string>
+    <string name="just_now">Just</string>
     <string name="minutes_ago">{count} minutes ago</string>
     <string name="hours_ago">{count} hours ago</string>
     <string name="days_ago">{count} days ago</string>
     <string name="weeks_ago">{count} weeks ago</string>
     <string name="months_ago">{count} months ago</string>
     <string name="years_ago">{count} years ago</string>
+    <string name="account_save">Save</string>
+    <string name="acc_add_edittext_hint">note</string>
+    <string name="acc_add_title">Add</string>
+    <string name="acc_add_save_failed">Please enter a valid amount</string>
 
     <!-- Calendar -->
     <string name="month_half_name_format" translatable="false">MMM</string>
     <string name="month_name_format" translatable="false">MMMM</string>
     <string name="day_name_format" translatable="false">EEEEE</string>
+    <string name="date_and_week_format">M-d E</string>
+    <string name="time_format" translatable="false">HH:mm</string>
 
     <!-- Agenda -->
     <string name="agenda_event_day_duration">d</string>
     <string name="agenda_event_no_events">No events</string>
 
-    <!--other-->
+    <!--undefined-->
     <string name="title_activity_main">MainActivity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>

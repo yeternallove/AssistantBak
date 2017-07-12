@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.zucc.zwy1317.myassistant.R;
 import com.zucc.zwy1317.myassistant.modle.ScheduleBean;
+import com.zucc.zwy1317.myassistant.ui.activities.MainActivity;
 import com.zucc.zwy1317.myassistant.ui.base.BaseFragment;
 import com.zucc.zwy1317.myassistant.ui.customview.agenda.AgendaAdapter;
 import com.zucc.zwy1317.myassistant.ui.customview.agenda.AgendaView;
@@ -30,19 +31,22 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
  * 用于显示界面的 Pager ，通过设置不同的 adapter 实现布局复用
  */
 public class ScheduleFragment extends BaseFragment implements StickyListHeadersListView.OnStickyHeaderChangedListener {
+    private MainActivity activity;
+    public AgendaAdapter agendaAdapter;
+    private int mCalendarHeaderColor, mCalendarDayTextColor, mCalendarPastDayTextColor, mCalendarCurrentDayColor;
+
     @BindView(R.id.test_calendar)
     CalendarView calendar_view;
     @BindView(R.id.test_agenda)
     AgendaView agenda_view;
-    public AgendaAdapter agendaAdapter;
-    private int mCalendarHeaderColor, mCalendarDayTextColor, mCalendarPastDayTextColor, mCalendarCurrentDayColor;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater , @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
 //        View view = inflater.inflate(R.layout.fragment_account,container,false);
         View view = View.inflate(getContext(),R.layout.fragment_schedule,null);
         ButterKnife.bind(this,view);
+        activity = (MainActivity)getActivity();
+        activity.onFragmentHiddenChanged(false,MainActivity.TAG_SCH);
         initData();
         return view;
     }
@@ -101,6 +105,10 @@ public class ScheduleFragment extends BaseFragment implements StickyListHeadersL
                 calendar_view.scrollToDate(CalendarManager.getInstance().getDays().get((int)event.getHeadID()));
             }
         }
+    }
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        activity.onFragmentHiddenChanged(hidden,MainActivity.TAG_SCH);
     }
 
 }

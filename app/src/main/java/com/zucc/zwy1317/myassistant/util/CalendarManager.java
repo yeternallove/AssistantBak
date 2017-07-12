@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -31,6 +30,8 @@ public class CalendarManager {
     private SimpleDateFormat mWeekdayFormatter;
     private SimpleDateFormat mMonthHalfNameFormat;
     private SimpleDateFormat mMonthDateFormat;
+    private SimpleDateFormat mGetDateAndWeekFormat;
+    private SimpleDateFormat mGetTimeFormat;
 
     private List<DayItem> mDays = new ArrayList<>();
     private List<WeekItem> mWeeks = new ArrayList<>();
@@ -62,6 +63,8 @@ public class CalendarManager {
         mWeekdayFormatter = new SimpleDateFormat(mContext.getString(R.string.day_name_format), mLocale);
         mMonthHalfNameFormat = new SimpleDateFormat(mContext.getString(R.string.month_half_name_format), mLocale);
         mMonthDateFormat = new SimpleDateFormat(mContext.getString(R.string.month_name_format), mLocale);
+        mGetDateAndWeekFormat = new SimpleDateFormat(mContext.getString(R.string.date_and_week_format),mLocale);
+        mGetTimeFormat = new SimpleDateFormat(mContext.getString(R.string.time_format),mLocale);
     }
 
     public Locale getLocale() {
@@ -80,15 +83,21 @@ public class CalendarManager {
         return mWeekdayFormatter;
     }
 
+    public SimpleDateFormat getGetDateAndWeekFormat(){
+        return mGetDateAndWeekFormat;
+    }
+
+    public SimpleDateFormat getGetTimeFormat(){
+        return mGetTimeFormat;
+    }
+
     public List<DayItem> getDays() {
         return mDays;
     }
 
-
     public List<WeekItem> getWeeks() {
         return mWeeks;
     }
-
 
     public List<ScheduleBean> getSchedules() {
         return mSchedules;
@@ -99,6 +108,7 @@ public class CalendarManager {
     }
 
     public void buildCal(Calendar minDate, Calendar maxDate, Locale locale) {//时间段以月为最小单位
+
         //异常处理
         if (minDate == null || maxDate == null) {
             throw new IllegalArgumentException(
@@ -171,7 +181,7 @@ public class CalendarManager {
                 weekItem.setmLabel(strMouth);
             }
             dayItem.setMonth(strMouth);
-            if(DateUtil.sameCalendar(mToday,cal)){
+            if(DateUtil.sameDay(mToday,cal)){
                 dayItem.setToday(true);
             }
             cal.add(Calendar.DATE, 1);
@@ -187,8 +197,11 @@ public class CalendarManager {
         List<ScheduleBean> scheduleList = new ArrayList<>();
         ScheduleBean scheduleBean;
         int i = 0, j = 0;
+
+        for(Date date = days.get(0).getDate().getTime(); j < list.size() && date.after(list.get(j).getDate().getTime()); j++);
+
         while(i < daysSize && j < list.size()){
-            if(DateUtil.sameCalendar(days.get(i).getDate(),list.get(j).getDate())){
+            if(DateUtil.sameDay(days.get(i).getDate(),list.get(j).getDate())){
                 scheduleBean = list.get(j);
                 scheduleBean.setHeadID(i);
                 scheduleList.add(scheduleBean);

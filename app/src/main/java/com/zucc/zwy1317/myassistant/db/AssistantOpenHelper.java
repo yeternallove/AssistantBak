@@ -41,20 +41,21 @@ public class AssistantOpenHelper extends SQLiteOpenHelper {
 
     public static final String CREATE_RECORD = "create table Record("
             + "rID varchar(20) primary key,"
-            + "amount integer,"
-            + "time timestamp，"        //流水账时间
-            + "isIncome boolean,"       //是不是进账
+            + "amount double,"
+            + "time timestamp,"        //流水账时间
+            + "type integer,"
             + "title varchar(20),"      //标签
             + "note text,"
             + "location text,"
             + "photo text,"
             + "uID varchar(20))";
 
-    private static final String CREATE_ICON = "create table Icon("
+    private static final String CREATE_ICON = "create table TypeIconBean("
             + "iID integer primary key autoincrement,"
             + "title varchar(20),"
             + "color text,"
-            + "icon text)";
+            + "type integer,"
+            + "icon integer)";
 
 
     public AssistantOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -76,7 +77,7 @@ public class AssistantOpenHelper extends SQLiteOpenHelper {
         db.execSQL("drop table if exists Schedule");
         db.execSQL("drop table if exists Chats");
         db.execSQL("drop table if exists Record");
-        db.execSQL("drop table if exists Icon");
+        db.execSQL("drop table if exists TypeIconBean");
         onCreate(db);
     }
 }

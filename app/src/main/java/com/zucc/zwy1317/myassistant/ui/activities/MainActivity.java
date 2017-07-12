@@ -1,9 +1,12 @@
 package com.zucc.zwy1317.myassistant.ui.activities;
 
-import android.location.Location;
+
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -13,13 +16,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.zucc.zwy1317.myassistant.R;
-import com.zucc.zwy1317.myassistant.ui.base.*;
+import com.zucc.zwy1317.myassistant.ui.base.BaseActivity;
+import com.zucc.zwy1317.myassistant.ui.base.BaseFragment;
 import com.zucc.zwy1317.myassistant.ui.fragments.AccountFragment;
+import com.zucc.zwy1317.myassistant.ui.fragments.ChatFragment;
+import com.zucc.zwy1317.myassistant.ui.fragments.OtherFragment;
 import com.zucc.zwy1317.myassistant.ui.fragments.ScheduleFragment;
 import com.zucc.zwy1317.myassistant.util.CalendarManager;
-import com.zucc.zwy1317.myassistant.util.LocationHelper;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -30,24 +37,37 @@ import butterknife.ButterKnife;
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private final static  String[] TAG_FRAGMENT = new String[]{"ACC","SCH"};
+    public final static  String[] TAG_FRAGMENT = new String[]{"CHAT","ACC","SCH","ME"};
+    public final static int TAG_CHAT = 0;
+    public final static int TAG_ACC = 1;
+    public final static int TAG_SCH = 2;
+    public final static int TAG_ME = 3;
 
     private String TAG_NOW;
     private FragmentManager fm;
     @BindView(R.id.main_appbarlayout)
     AppBarLayout appBarLayout;
-    @BindView(R.id.toolbar)
+    @BindView(R.id.main_toolbar)
     Toolbar toolbar;
     @BindView(R.id.drawer_layout)
     DrawerLayout drawer;
     @BindView(R.id.nav_view)
     NavigationView navigationView;
+    @BindView(R.id.main_appbar_tv_time)
+    TextView tvTime;
+    @BindView(R.id.main_appbar_img_toggle)
+    ImageView imgToggle;
+    @BindView(R.id.main_appbar_acc_tv_title)
+    TextView tvTitle;
+    @BindView(R.id.main_appbar_img_today)
+    ImageView imgToday;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
         initCalendarInfo();
@@ -58,17 +78,18 @@ public class MainActivity extends BaseActivity
         toggle.syncState();
 
         fm = getSupportFragmentManager();
+
         fm.beginTransaction()
-                .add(R.id.main_frameLayout_fragment,new AccountFragment(),TAG_FRAGMENT[0])
+                .add(R.id.main_frameLayout_fragment,new ChatFragment(),TAG_FRAGMENT[0])
                 .commit();
-        TAG_NOW = TAG_FRAGMENT[0];
+        TAG_NOW = TAG_FRAGMENT[TAG_CHAT];
+        navigationView.setCheckedItem(R.id.nav_chat);
 
         navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -78,15 +99,14 @@ public class MainActivity extends BaseActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return false;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         int id = item.getItemId();
-
         if (id == R.id.action_settings) {
             return true;
         }
@@ -98,17 +118,18 @@ public class MainActivity extends BaseActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
-        appBarLayout.setVisibility(View.GONE);
         switch (id){
-            case R.id.nav_camera:
+            case R.id.nav_chat:
+                switchFragment(TAG_NOW,TAG_FRAGMENT[TAG_CHAT],new ChatFragment());
                 break;
-            case R.id.nav_gallery:
-                switchFragment(TAG_FRAGMENT[0],new AccountFragment());
+            case R.id.nav_account:
+                switchFragment(TAG_NOW,TAG_FRAGMENT[TAG_ACC],new AccountFragment());
                 break;
-            case R.id.nav_slideshow:
-                switchFragment(TAG_FRAGMENT[1],new ScheduleFragment());
+            case R.id.nav_schedule:
+                switchFragment(TAG_NOW,TAG_FRAGMENT[TAG_SCH],new ScheduleFragment());
                 break;
-            case R.id.nav_manage:
+            case R.id.nav_other:
+                switchFragment(TAG_NOW,TAG_FRAGMENT[TAG_ME],new OtherFragment());
                 break;
             case R.id.nav_share:
                 break;
@@ -122,6 +143,16 @@ public class MainActivity extends BaseActivity
         return true;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Fragment bf = fm.findFragmentByTag(TAG_FRAGMENT[1]);
+        if(bf != null) {
+            bf.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+
     private void initCalendarInfo() {
         // 设置日历显示的时间，最大为当前时间+1年，最小为当前时间-2月
         Calendar minDate = Calendar.getInstance();
@@ -134,20 +165,63 @@ public class MainActivity extends BaseActivity
         CalendarManager.getInstance(this).buildCal(minDate, maxDate, Locale.getDefault());
     }
 
-    private void switchFragment(String tag,BaseFragment bf){
+    private void switchFragment(String tagNow,String tagChanged,BaseFragment bf){
         BaseFragment fragment ;
         FragmentTransaction ft = fm.beginTransaction();
-        fragment = (BaseFragment) fm.findFragmentByTag(TAG_NOW);
+        fragment = (BaseFragment) fm.findFragmentByTag(tagNow);
         if(fragment !=null && fragment.isAdded()){
             ft.hide(fragment);
         }
-        fragment = (BaseFragment) fm.findFragmentByTag(tag);
-        TAG_NOW = tag;
+        fragment = (BaseFragment) fm.findFragmentByTag(tagChanged);
         if(fragment == null ){
-            ft.add(R.id.main_frameLayout_fragment,bf,tag);
+            ft.add(R.id.main_frameLayout_fragment,bf,tagChanged);
         }else {
             ft.show(fragment);
         }
         ft.commit();
+        this.TAG_NOW = tagChanged;
+    }
+    //界面切换 修改toolbar内容
+    public void onFragmentHiddenChanged(boolean is,int type){
+        switch (type){
+            case 0:
+                if(is){
+
+                }else{
+
+                }
+                break;
+            case 1:
+                if(is){
+                    tvTitle.setVisibility(View.GONE);
+                }else{
+                    tvTitle.setVisibility(View.VISIBLE);
+                }
+                break;
+            case 2:
+                if(is){
+                    tvTime.setVisibility(View.GONE);
+                    imgToggle.setVisibility(View.GONE);
+                    imgToday.setVisibility(View.GONE);
+                }else{
+                    tvTime.setVisibility(View.VISIBLE);
+                    imgToggle.setVisibility(View.VISIBLE);
+                    imgToday.setVisibility(View.VISIBLE);
+                }
+                break;
+            case 3:
+                if(is){
+                    appBarLayout.setVisibility(View.VISIBLE);
+                }else{
+                    appBarLayout.setVisibility(View.GONE);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    public ImageView getImgToday(){
+        return  this.imgToday;
     }
 }

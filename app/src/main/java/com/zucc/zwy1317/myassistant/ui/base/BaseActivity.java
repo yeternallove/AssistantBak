@@ -2,6 +2,7 @@ package com.zucc.zwy1317.myassistant.ui.base;
 
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 /**
  * @description:
@@ -10,5 +11,4 @@ import android.support.v7.app.AppCompatActivity;
  */
 
 public class BaseActivity extends AppCompatActivity {
-
 }

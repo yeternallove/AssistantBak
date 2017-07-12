@@ -4,9 +4,17 @@
     android:layout_height="@dimen/account_item_height">
     <View
         android:layout_width="1dp"
-        android:layout_height="match_parent"
+        android:layout_height="@dimen/account_item_half_height"
         android:background="@color/secondary_text"
-        android:layout_centerInParent="true"/>
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+    <View
+        android:id="@+id/item_account_view_bottom"
+        android:layout_width="1dp"
+        android:layout_height="@dimen/account_item_half_height"
+        android:background="@color/secondary_text"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
 
     <ImageView
         android:id="@+id/item_account_iv"

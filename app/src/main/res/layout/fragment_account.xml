@@ -3,85 +3,75 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/acc_add_appbarlayout"
+    android:paddingTop="?attr/actionBarSize">
+
+    <LinearLayout
+        android:id="@+id/acc_ll_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" >
-            <TextView
-                android:id="@+id/acc_tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/account_tv_title_height"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/title_account" />
-        </android.support.v7.widget.Toolbar>
+        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/acc_add_top_margin_bottom"
+        android:layout_below="@+id/acc_add_appbarlayout">
 
         <LinearLayout
-            android:id="@+id/acc_ll_top"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <LinearLayout
-                android:layout_width="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/acc_tv_income"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/default_margin"
+                android:text="@string/tv_account_income"
+                android:textSize="10sp" />
 
-                <TextView
-                    android:id="@+id/acc_tv_income"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/tv_account_income"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:id="@+id/acc_tv_incomeMoney"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center"
-                    android:text="0.00"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/acc_tv_incomeMoney"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/acc_tv_spending"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/tv_account_spending"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:id="@+id/acc_tv_spendingMoney"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="0.00"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/default_margin"
+                android:gravity="center"
+                android:text="0.00"
+                android:textSize="18sp"
+                android:textStyle="bold" />
         </LinearLayout>
-    </android.support.design.widget.AppBarLayout>
 
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
+            <TextView
+                android:id="@+id/acc_tv_spending"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/default_margin"
+                android:text="@string/tv_account_spending"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/acc_tv_spendingMoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/default_margin"
+                android:text="0.00"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/account_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/acc_ll_top">
+    </android.support.v7.widget.RecyclerView>
 
     <ImageButton
         android:id="@+id/acc_imgBtn_account"
@@ -91,10 +81,4 @@
         android:background="@drawable/ic_menu_camera"
         android:layout_centerHorizontal="true"
         />
-
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/acc_add_appbarlayout">
-    </android.support.v7.widget.RecyclerView>
 </RelativeLayout>

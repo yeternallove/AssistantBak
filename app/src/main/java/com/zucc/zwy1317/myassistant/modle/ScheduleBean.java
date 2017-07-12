@@ -51,7 +51,8 @@ public class ScheduleBean{
         this.mAlarmColor = alarmColor;
         this.mAlarmTonePath = alarmTonePath;
         this.uID = uID;
-        this.date = null;
+        this.date = Calendar.getInstance();
+        this.date.setTimeInMillis(startTime);
     }
 
     public String getsID() {

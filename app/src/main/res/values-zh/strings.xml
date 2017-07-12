@@ -15,10 +15,19 @@
     <string name="tv_account_spending">支出</string>
     <string name="today">今天</string>
     <string name="yesterday">昨天</string>
+    <string name="just_now">刚刚</string>
+    <string name="minutes_ago">{count} 分钟以前</string>
+    <string name="hours_ago">{count} 小时前</string>
     <string name="days_ago">{count} 天前</string>
     <string name="weeks_ago">{count} 周前</string>
     <string name="months_ago">{count} 月前</string>
     <string name="years_ago">{count} 年前</string>
+    <string name="account_save">保存</string>
+    <string name="acc_add_edittext_hint">写点啥备注下</string>
+    <string name="acc_add_title">添加</string>
+    <string name="acc_add_save_failed">请输入有效的金额</string>
+
+    <string name="date_and_week_format">M月dd日 EEE</string>
 
 
 
