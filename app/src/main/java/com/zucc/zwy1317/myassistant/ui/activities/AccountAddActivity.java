@@ -1,7 +1,6 @@
 package com.zucc.zwy1317.myassistant.ui.activities;
 
 
-import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -29,11 +28,11 @@ import com.zucc.zwy1317.myassistant.ui.base.BaseActivity;
 import com.zucc.zwy1317.myassistant.ui.base.BaseFragment;
 import com.zucc.zwy1317.myassistant.ui.fragments.TypeIconFragment;
 import com.zucc.zwy1317.myassistant.util.CalendarManager;
+import com.zucc.zwy1317.myassistant.util.UserManager;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -52,7 +51,6 @@ public class AccountAddActivity extends BaseActivity implements View.OnClickList
 
     private AssistantDB db;
     private RecordBean recordBean;
-    private String uID = "admin";
 
     private DatePickerDialog mDataPicker;
     private TimePickerDialog mTimePicker;
@@ -67,7 +65,7 @@ public class AccountAddActivity extends BaseActivity implements View.OnClickList
     TabLayout tabLayout;
     @BindView(R.id.acc_add_toolbar)
     Toolbar toolbar;
-    @BindView(R.id.acc_add_btn_save)
+    @BindView(R.id.btn_save)
     Button btnSave;
     @BindView(R.id.acc_add_edt_money)
     EditText edtMoney;
@@ -75,7 +73,7 @@ public class AccountAddActivity extends BaseActivity implements View.OnClickList
     TextView tvTitle;
     @BindView(R.id.acc_add_edt_note)
     TextView edtNote;
-    @BindView(R.id.acc_add_tv_day_of_mouth)
+    @BindView(R.id.sch_add_tv_start_time)
     TextView tvDay;
     @BindView(R.id.acc_add_tv_time)
     TextView tvTime;
@@ -131,7 +129,7 @@ public class AccountAddActivity extends BaseActivity implements View.OnClickList
         tvDay.setText(dateFormat.format(mCalendar.getTime()));
         tvTime.setText(timeFormat.format(mCalendar.getTime()));
 
-        recordBean = new RecordBean(uID);
+        recordBean = new RecordBean(UserManager.getInstance(this).getuID());
         db = AssistantDB.getInstance(this);
 
         btnSave.setOnClickListener(this);
@@ -144,7 +142,7 @@ public class AccountAddActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.acc_add_btn_save:
+            case R.id.btn_save:
                 String strMoney = edtMoney.getText().toString();
                 double money;
                 if(strMoney.equals("")||( money = Double.parseDouble(strMoney)) == 0){
@@ -154,13 +152,13 @@ public class AccountAddActivity extends BaseActivity implements View.OnClickList
                 recordBean.setmAmount(money);
                 recordBean.setTitle(tvTitle.getText().toString());
                 recordBean.setmNote(edtNote.getText().toString());
-                recordBean.setmTime(mCalendar.getTime().getTime());
+                recordBean.setmTime(mCalendar);
                 recordBean.setType(TypeIconBean.TYPE_INCOME);
                 db.saveRecord(recordBean);
                 setResult(ACC_ADD_SAVE);
                 finish();
                 break;
-            case R.id.acc_add_tv_day_of_mouth:
+            case R.id.sch_add_tv_start_time:
                 getDatePickerDialog();
                 break;
             case R.id.acc_add_tv_time:
@@ -188,8 +186,6 @@ public class AccountAddActivity extends BaseActivity implements View.OnClickList
         mDataPicker.getDatePicker().setMaxDate(System.currentTimeMillis());
         mDataPicker.show();
     }
-
-
 
     private void getTimePickerDialog() {
         Calendar calendar = Calendar.getInstance();

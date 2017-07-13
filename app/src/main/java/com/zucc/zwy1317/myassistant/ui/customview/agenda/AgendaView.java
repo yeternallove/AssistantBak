@@ -67,6 +67,8 @@ public class AgendaView extends FrameLayout {
                             //日期事件匹配成功后,更新数据适配器
                             ((AgendaAdapter) getAgendaListView().getAdapter()).updateEvents(CalendarManager.getInstance().getSchedules());
                             getAgendaListView().scrollToCurrentDate(CalendarManager.getInstance().getToday());
+                        } else if (event instanceof Events.GoBackToDay) {
+                            getAgendaListView().scrollToCurrentDate(CalendarManager.getInstance().getToday());
                         }
                     }
                 });
@@ -90,12 +92,6 @@ public class AgendaView extends FrameLayout {
         return super.dispatchTouchEvent(event);
     }
 
-
-    /**
-     * 得到 AgendaView 下的日程 View AgendaListView
-     *
-     * @return
-     */
     public AgendaListView getAgendaListView() {
         return mAgendaListView;
     }
@@ -140,7 +136,4 @@ public class AgendaView extends FrameLayout {
             mover.start();
         }
     }
-
-
-    // endregion
 }

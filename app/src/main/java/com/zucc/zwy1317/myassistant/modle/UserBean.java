@@ -16,7 +16,9 @@ public class UserBean {
     private String mAvatar;
     private String mData;
 
-    public UserBean(){}
+    public UserBean(){
+        this.uID = "undefined";
+    }
     public UserBean( String uID, String QQ, String emal, String nickname, String pwd, String avatar, String data){
         this.uID = uID;
         this.mQQ = QQ;
@@ -25,6 +27,11 @@ public class UserBean {
         this.mPwd = pwd;
         this.mAvatar = avatar;
         this.mData = data;
+    }
+    public UserBean(String uID, String nickname){
+        this();
+        this.uID = uID;
+        this.mNickname = nickname;
     }
 
     public String getuID() {

@@ -32,7 +32,8 @@
         android:layout_marginEnd="@dimen/account_item_tv_margin"
         android:layout_toStartOf="@+id/item_account_iv"
         android:text="@string/tv_account_income"
-        android:textSize="18sp" />
+        android:textColor="@color/primary_text"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/item_account_tv_spending"
@@ -42,5 +43,6 @@
         android:layout_marginStart="@dimen/account_item_tv_margin"
         android:layout_toEndOf="@+id/item_account_iv"
         android:text="@string/tv_account_spending"
-        android:textSize="18sp" />
+        android:textColor="@color/primary_text"
+        android:textSize="14sp" />
 </RelativeLayout>

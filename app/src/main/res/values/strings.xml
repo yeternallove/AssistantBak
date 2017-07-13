@@ -7,6 +7,8 @@
     <string name="main_drawer_nav_schedule">Schedule</string>
     <string name="main_drawer_nav_other">Other</string>
     <string name="main_drawer_nav_communicate">Communicate</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 
     <!-- Account -->
@@ -23,9 +25,17 @@
     <string name="months_ago">{count} months ago</string>
     <string name="years_ago">{count} years ago</string>
     <string name="account_save">Save</string>
-    <string name="acc_add_edittext_hint">note</string>
     <string name="acc_add_title">Add</string>
     <string name="acc_add_save_failed">Please enter a valid amount</string>
+    <string name="note_edittext_hint">note</string>
+
+    <!--Schedule-->
+    <string name="sch_add_start">Start</string>
+    <string name="sch_add_end">End</string>
+    <string name="sch_add_remind">Remind</string>
+    <string name="sch_add_repeat">Repeat</string>
+    <string name="sch_add_all_day">All Day</string>
+    <string name="sch_add_note">Note</string>
 
     <!-- Calendar -->
     <string name="month_half_name_format" translatable="false">MMM</string>
@@ -33,31 +43,27 @@
     <string name="day_name_format" translatable="false">EEEEE</string>
     <string name="date_and_week_format">M-d E</string>
     <string name="time_format" translatable="false">HH:mm</string>
+    <string name="message_time_format">yyyy-MM-dd HH:mm:ss</string>
 
     <!-- Agenda -->
     <string name="agenda_event_day_duration">d</string>
-    <string name="agenda_event_no_events">No events</string>
 
     <!--undefined-->
-    <string name="title_activity_main">MainActivity</string>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
+    <string name="prompt_username">Username</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
+    <string name="error_invalid_email" translatable="false">This email address is invalid</string>
+    <string name="error_invalid_password" translatable="false">This password is too short</string>
+    <string name="error_incorrect_password" translatable="false">This password is incorrect</string>
+    <string name="error_field_required" translatable="false">This field is required</string>
+    <string name="permission_rationale" translatable="false">"Contacts permissions are needed for providing email
         completions."
     </string>
-    
+    <string name="checkBox_remember_pass">remember pass</string>
+
 </resources>

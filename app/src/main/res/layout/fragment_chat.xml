@@ -1,7 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="?attr/actionBarSize">
+    android:paddingTop="?attr/actionBarSize">
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:background="@color/btn_gray_normal">
+
+        <EditText
+            android:id="@+id/chat_edt_send"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null" />
+
+        <Button
+            android:id="@+id/chat_btn_send"
+            style="@android:style/Widget.DeviceDefault.Button.Borderless.Small"
+            android:layout_width="63dp"
+            android:layout_height="40dp"
+            android:layout_margin="4dp"
+            android:layout_weight="0.02"
+            android:background="@drawable/shape_btn_background"
+            android:text="发送"
+            android:textColor="@color/icons" />
+    </LinearLayout>
 </LinearLayout>

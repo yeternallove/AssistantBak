@@ -27,6 +27,13 @@ import butterknife.ButterKnife;
  */
 
 public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountViewHolder> {
+
+    private static final int TYPE_NULL= 0;
+    private static final int TYPE_INCOME = 1;
+    private static final int TYPE_SPENDING = 2;
+    private static final int TYPE_FEET= 3;
+
+
     private Context mContext;
     private List<RecordBean> mData = new ArrayList<>();
     private HashMap<String,TypeIconBean> map = new HashMap<>();
@@ -43,6 +50,11 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
     }
     public void updateTypeIcon(HashMap<String,TypeIconBean> map){
         this.map = map;
+    }
+
+    @Override
+    public int getItemCount() {
+        return mData.size();
     }
 
 
@@ -77,12 +89,6 @@ public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountV
             holder.mImageView.setImageResource(map.get(recordBean.getTitle()).getIcon());
         }
 
-    }
-
-
-    @Override
-    public int getItemCount() {
-        return mData.size();
     }
 
     static class AccountViewHolder extends RecyclerView.ViewHolder {

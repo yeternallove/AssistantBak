@@ -12,17 +12,22 @@ public class ChatBean {
     private String mSenderID;
     private String mRecipientID;
     private Long mTimestamp;
-    private String mButtons;
     private String mMessage;
     public ChatBean(){}
 
-    public ChatBean(String cID,String senderID,String recipientID,Long timestamp,String buttons,String message ){
-        this.cID = cID;
+    public ChatBean(String senderID,String recipientID,Long timestamp,String message ){
+        this.cID = null;
         this.mSenderID = senderID;
         this.mRecipientID = recipientID;
         this.mTimestamp = timestamp;
-        this.mButtons = buttons;
         this.mMessage = message;
+    }
+
+    public ChatBean bindID(){
+        if(cID == null){
+            this.cID = String.format("%s%s%d", this.getmSenderID(), this.getmRecipientID(), this.getmTimestamp());
+        }
+        return this;
     }
 
     public String getcID() {
@@ -55,14 +60,6 @@ public class ChatBean {
 
     public void setmTimestamp(Long mTimestamp) {
         this.mTimestamp = mTimestamp;
-    }
-
-    public String getmButtons() {
-        return mButtons;
-    }
-
-    public void setmButtons(String mButtons) {
-        this.mButtons = mButtons;
     }
 
     public String getmMessage() {

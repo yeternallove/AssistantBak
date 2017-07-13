@@ -31,12 +31,11 @@ public class AssistantOpenHelper extends SQLiteOpenHelper {
             + "alarmTonePath text,"
             + "uID varchar(20))";
 
-    public static final String CREATE_CHATS = "create table Chats("
+    public static final String CREATE_CHAT = "create table Chat("
             + "cID varchar(20) primary key,"
             + "senderID varchar(20),"
             + "recipientID varchar(20),"
-            + "timestamp integer ,"
-            + "buttons text,"
+            + "timestamp integer,"
             + "message text)";
 
     public static final String CREATE_RECORD = "create table Record("
@@ -66,7 +65,7 @@ public class AssistantOpenHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_USER);
         db.execSQL(CREATE_SCHEDULE);
-        db.execSQL(CREATE_CHATS);
+        db.execSQL(CREATE_CHAT);
         db.execSQL(CREATE_RECORD);
         db.execSQL(CREATE_ICON);
     }
@@ -75,7 +74,7 @@ public class AssistantOpenHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int old_i, int new_i) {
         db.execSQL("drop table if exists User");
         db.execSQL("drop table if exists Schedule");
-        db.execSQL("drop table if exists Chats");
+        db.execSQL("drop table if exists Chat");
         db.execSQL("drop table if exists Record");
         db.execSQL("drop table if exists TypeIconBean");
         onCreate(db);

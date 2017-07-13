@@ -38,8 +38,17 @@
     <dimen name="agenda_event_view_padding_right">15dp</dimen>
     <dimen name="agenda_event_view_padding_bottom">5dp</dimen>
 
-
-
-
+    <!--chat adapter-->
+    <dimen name="max_img_picture_size">100dp</dimen>
+    <dimen name="padding_img_picture">8dp</dimen>
+    <dimen name="padding_start_img_picture">13dp</dimen>
+    <dimen name="activity_select_height">50dp</dimen>
+    <dimen name="activity_select_width">50dp</dimen>
+    <dimen name="height_popupWindow">40dp</dimen>
+    <dimen name="popup_padding_leftorright">10dp</dimen>
+    <dimen name="shadowRadius_num">5dp</dimen>
+    <dimen name="margin_chat_activity">5dp</dimen>
+    <dimen name="padding_chat_activity">10dp</dimen>
+    <dimen name="padding_end_chat_activity">15dp</dimen>
 
 </resources>

@@ -5,6 +5,8 @@ import android.content.Context;
 
 import com.zucc.zwy1317.myassistant.util.DateUtil;
 
+import java.util.Calendar;
+
 /**
  * @description:
  * @author: eternallove
@@ -49,7 +51,9 @@ public class RecordBean {
     }
 
     public RecordBean bindID(){
-        this.rID = String.format("%s%d",this.getuID(),this.getmTime());
+        if(getrID() == null) {
+            this.rID = String.format("%s%d", this.getuID(), this.getmTime());
+        }
         return this;
     }
 
@@ -81,6 +85,9 @@ public class RecordBean {
 
     public void setmTime(long mTime) {
         this.mTime = mTime;
+    }
+    public void setmTime(Calendar mTime) {
+        this.mTime = mTime.getTimeInMillis();
     }
 
     public int getType() {

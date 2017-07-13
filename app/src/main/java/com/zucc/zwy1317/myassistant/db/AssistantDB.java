@@ -4,7 +4,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.zucc.zwy1317.myassistant.modle.ChatBean;
 import com.zucc.zwy1317.myassistant.modle.RecordBean;
+import com.zucc.zwy1317.myassistant.modle.ScheduleBean;
 import com.zucc.zwy1317.myassistant.modle.TypeIconBean;
 import com.zucc.zwy1317.myassistant.modle.UserBean;
 
@@ -19,7 +21,7 @@ import java.util.List;
  */
 public class AssistantDB {
     public static final String DB_NAME = "Eternal";
-    public static final int VERSION = 2;
+    public static final int VERSION = 1;
 
     private static AssistantDB massistantDB;
     private SQLiteDatabase db;
@@ -55,11 +57,27 @@ public class AssistantDB {
                 userBean.getmNickname(), userBean.getmPwd(), userBean.getmAvatar(), userBean.getmData()});
     }
 
+    public String login(String account, String pwd) {
+        final String sql = "SELECT uID,pwd FROM User WHERE uID = ? ";
+        Cursor c = db.rawQuery(sql, new String[]{account});
+        if (c.moveToFirst()) {
+            String uID = c.getString(0);
+            String pwd2 = c.getString(1);
+            if (pwd.equals(pwd2)) {
+                return uID;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
     public void saveRecord(RecordBean recordBean){
         final String sql_s = "SELECT * FROM Record WHERE rID = ? ";//select
         final String sql_i = "INSERT INTO Record(rID,amount,time,type,title,note,location,photo,uID) VALUES(?,?,?,?,?,?,?,?,?)";//insert
 
-        if(recordBean.getrID() == null) recordBean.bindID();
+        recordBean.bindID();
         Cursor c = db.rawQuery(sql_s, new String[]{recordBean.getrID()});
         if (c.moveToFirst()) {
             c.close();
@@ -102,7 +120,7 @@ public class AssistantDB {
     }
 
     public List<RecordBean> loadRecordAll(String uID){
-        final String sql = "SELECT rID,amount,time,type,title,note,location,photo,uID FROM Record WHERE uID = ? ORDER BY time DESC";
+        final String sql = "SELECT rID,amount,time,type,title,note,location,photo FROM Record WHERE uID = ? ORDER BY time DESC";
         List<RecordBean> recordList = new ArrayList<>();
         RecordBean recordBean;
         Cursor c = db.rawQuery(sql,new String[]{uID});
@@ -116,7 +134,7 @@ public class AssistantDB {
             recordBean.setmNote(c.getString(5));
             recordBean.setLocation(c.getString(6));
             recordBean.setPhoto(c.getString(7));
-            recordBean.setuID(c.getString(8));
+            recordBean.setuID(uID);
             recordList.add(recordBean);
         }
         c.close();
@@ -128,6 +146,7 @@ public class AssistantDB {
         db.execSQL(sql_i, new Object[]{iconBean.getTitle(), iconBean.getColor(),
                 iconBean.getType(),iconBean.getIcon()});
     }
+
     public boolean deleteTypeIcon(int iID){
         final String sql_s = "SELECT * FROM TypeIconBean WHERE iID = ?";
         final String sql_d = "DELETE FROM TypeIconBean WHERE iID = ?";
@@ -179,4 +198,109 @@ public class AssistantDB {
         }
         return map;
     }
+
+    public void saveSchedule(ScheduleBean scheduleBean){
+        final String sql_s = "SELECT * FROM Schedule WHERE sID = ? ";//select
+        final String sql_i = "INSERT INTO Schedule(sID,title,note,startTime,endTime,alarmTime,alarmColor,alarmTonePath,uID) VALUES(?,?,?,?,?,?,?,?,?)";//insert
+
+        scheduleBean.bindID();
+        Cursor c = db.rawQuery(sql_s, new String[]{scheduleBean.getsID()});
+        if (c.moveToFirst()) {
+            c.close();
+            return;
+        }
+        db.execSQL(sql_i, new Object[]{scheduleBean.getsID(),scheduleBean.getmTitle(),scheduleBean.getmNote(),
+                scheduleBean.getmStartTime(),scheduleBean.getmEndTime(),scheduleBean.getmAlarmTime(),
+                scheduleBean.getmAlarmColor(),scheduleBean.getmAlarmTonePath(),scheduleBean.getuID()});
+    }
+
+    public boolean deleteSchedule(String sID){
+        final String sql_s = "SELECT * FROM Schedule WHERE sID = ?";
+        final String sql_d = "DELETE FROM Schedule WHERE sID = ?";
+        Cursor c = db.rawQuery(sql_s, new String[]{sID});
+        if (!c.moveToFirst()) {
+            return false;
+        }
+        c.close();
+        db.execSQL(sql_d, new Object[]{sID});
+        return true;
+    }
+
+    public boolean updateSchedule(ScheduleBean scheduleBean){
+        final String sql = "UPDATE Schedule " +
+                "SET sID = ?, title = ?, note = ?, startTime = ?, endTime = ?, alarmTime = ?, alarmColor = ?, alarmTonePath = ?, uID = ? " +
+                "WHERE sID = ?;";
+        try {
+            db.execSQL(sql,new Object[]{scheduleBean.getsID(),scheduleBean.getmTitle(),scheduleBean.getmNote(),
+                    scheduleBean.getmStartTime(),scheduleBean.getmEndTime(),scheduleBean.getmAlarmTime(),
+                    scheduleBean.getmAlarmColor(),scheduleBean.getmAlarmTonePath(),scheduleBean.getuID(),scheduleBean.getsID()});
+        }catch (Error e){
+            return false;
+        }
+        return true;
+    }
+
+    public ScheduleBean querySchedule(String sID){
+        ScheduleBean scheduleBean = new ScheduleBean();
+        return scheduleBean;
+    }
+
+    public List<ScheduleBean> loadScheduleAll(String uID){
+        final String sql = "SELECT sID,title,note,startTime,endTime,alarmTime,alarmColor,alarmTonePath FROM Schedule WHERE uID = ? ORDER BY startTime";
+        List<ScheduleBean> scheduleList = new ArrayList<>();
+        ScheduleBean scheduleBean;
+        Cursor c = db.rawQuery(sql,new String[]{uID});
+        while (c.moveToNext()){
+            scheduleBean = new ScheduleBean();
+            scheduleBean.setsID(c.getString(0));
+            scheduleBean.setmTitle(c.getString(1));
+            scheduleBean.setmNote(c.getString(2));
+            scheduleBean.setmStartTime(c.getLong(3));
+            scheduleBean.setmEndTime(c.getLong(4));
+            scheduleBean.setmAlarmTime(c.getLong(5));
+            scheduleBean.setmAlarmColor(c.getString(6));
+            scheduleBean.setmAlarmTonePath(c.getString(7));
+            scheduleBean.setuID(uID);
+            scheduleList.add(scheduleBean);
+        }
+        c.close();
+        return scheduleList;
+    }
+    public void saveChat(ChatBean chatBean) {
+        if (chatBean.getmSenderID() == null || chatBean.getmRecipientID() == null)
+            return;
+        final String sql = "INSERT INTO Chat(cID,senderID,recipientID,timestamp,message) VALUES(?,?,?,?,?)";
+        db.execSQL(sql, new Object[]{chatBean.getcID(),chatBean.getmSenderID(),chatBean.getmRecipientID(),chatBean.getmTimestamp(),
+                chatBean.getmMessage()});
+    }
+
+    public boolean deleteChat(String cID) {
+        final String sql_s = "SELECT * FROM Chat WHERE cID = ?";
+        final String sql_d = "DELETE FROM Chat WHERE cID = ?";
+        Cursor c = db.rawQuery(sql_s, new String[]{cID});
+        if (!c.moveToFirst()) {
+            return false;
+        }
+        c.close();
+        db.execSQL(sql_d, new Object[]{cID});
+        return true;
+    }
+
+    public List<ChatBean> loadChatAll(String uID) {
+        List<ChatBean> list = new ArrayList<>();
+        ChatBean chatBean;
+        final String sql = "SELECT cID,senderID,recipientID,timestamp,message FROM Chat WHERE senderID = ? OR recipientID = ? ORDER BY timestamp DESC";
+        Cursor c = db.rawQuery(sql, new String[]{uID,uID});
+        while (c.moveToNext()) {
+            chatBean = new ChatBean();
+            chatBean.setcID(c.getString(0));
+            chatBean.setmSenderID(c.getString(1));
+            chatBean.setmRecipientID(c.getString(2));
+            chatBean.setmTimestamp(c.getLong(3));
+            chatBean.setmMessage(c.getString(4));
+            list.add(chatBean);
+        }
+        return list;
+    }
+
 }

@@ -69,6 +69,11 @@
                     android:inputType ="number|numberDecimal"/>
 
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/shadow"
+                />
             <android.support.design.widget.TabLayout
                 android:id="@+id/acc_add_tabs"
                 android:layout_width="match_parent"
@@ -80,6 +85,11 @@
                 android:id="@+id/acc_add_vp"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/acc_add_viewpaper_height" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/shadow"
+                />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -92,7 +102,7 @@
                     android:src="@drawable/ic_timer_black_24dp"
                     android:layout_weight="0"/>
                 <TextView
-                    android:id="@+id/acc_add_tv_day_of_mouth"
+                    android:id="@+id/sch_add_tv_start_time"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="2"
@@ -106,6 +116,11 @@
                     android:gravity="center"
                     android:text="10：29"/>
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/shadow"
+                />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -123,9 +138,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
-                    android:gravity="center_vertical"
-                    android:hint="@string/acc_add_edittext_hint" />
+                    android:gravity="center"
+                    android:hint="@string/note_edittext_hint" />
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/shadow"
+                />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -143,6 +163,11 @@
                     android:gravity="center"
                     android:text="位置信息"/>
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/shadow"
+                />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -162,7 +187,7 @@
         </LinearLayout>
     </ScrollView>
     <Button
-        android:id="@+id/acc_add_btn_save"
+        android:id="@+id/btn_save"
         android:layout_width="match_parent"
         android:layout_height="@dimen/acc_add_btn_save_height"
         android:text="@string/account_save"

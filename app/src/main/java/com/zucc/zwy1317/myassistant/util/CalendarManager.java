@@ -19,7 +19,6 @@ import java.util.Locale;
  */
 public class CalendarManager {
 
-
     private static CalendarManager mInstance;//单例模型
 
     private Context mContext;
@@ -32,6 +31,7 @@ public class CalendarManager {
     private SimpleDateFormat mMonthDateFormat;
     private SimpleDateFormat mGetDateAndWeekFormat;
     private SimpleDateFormat mGetTimeFormat;
+    private SimpleDateFormat mGetMessageTimeForamt;
 
     private List<DayItem> mDays = new ArrayList<>();
     private List<WeekItem> mWeeks = new ArrayList<>();
@@ -65,6 +65,7 @@ public class CalendarManager {
         mMonthDateFormat = new SimpleDateFormat(mContext.getString(R.string.month_name_format), mLocale);
         mGetDateAndWeekFormat = new SimpleDateFormat(mContext.getString(R.string.date_and_week_format),mLocale);
         mGetTimeFormat = new SimpleDateFormat(mContext.getString(R.string.time_format),mLocale);
+        mGetMessageTimeForamt = new SimpleDateFormat(mContext.getString(R.string.message_time_format),mLocale);
     }
 
     public Locale getLocale() {
@@ -89,6 +90,10 @@ public class CalendarManager {
 
     public SimpleDateFormat getGetTimeFormat(){
         return mGetTimeFormat;
+    }
+
+    public SimpleDateFormat getMessageTimeFormat(){
+        return this.mGetMessageTimeForamt;
     }
 
     public List<DayItem> getDays() {
@@ -207,12 +212,12 @@ public class CalendarManager {
                 scheduleList.add(scheduleBean);
                 j++;
             }else{
-                scheduleList.add(new ScheduleBean(i));
+                scheduleList.add(new ScheduleBean(i,days.get(i).getDate()));
                 i++;
             }
         }
         while(i < daysSize){
-            scheduleList.add(new ScheduleBean(i));
+            scheduleList.add(new ScheduleBean(i,days.get(i).getDate()));
             i++;
         }
         setSchedules(scheduleList);

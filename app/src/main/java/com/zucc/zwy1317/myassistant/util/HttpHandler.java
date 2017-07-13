@@ -2,6 +2,10 @@ package com.zucc.zwy1317.myassistant.util;
 
 import android.util.Log;
 
+import com.zucc.zwy1317.myassistant.modle.ChatBean;
+
+import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -78,27 +82,26 @@ public class HttpHandler {
      *            ：发送的消息
      * @return：消息对象
      */
-//    public static ChatMessageBean sendMessage(String message,String mId) {
-//        ChatMessageBean chatMessage = new ChatMessageBean();
-//        String gsonResult = doGet(message);
-//        if (gsonResult != null) {
-//            try {
-//                JSONObject jsonObj = new JSONObject(gsonResult);
-//                if(jsonObj.has("text")){
-//                    chatMessage.setMessage(jsonObj.getString("text"));
-//                }else{
-//                    chatMessage.setMessage(null);
-//                }
-//            } catch (Exception e) {
-//                chatMessage.setMessage("服务器繁忙，请稍候再试...");
-//            }
-//        }
-//        chatMessage.setPicture(null);
-//        chatMessage.setRecipient_id(mId);
-//        chatMessage.setSender_id("laiye");
-//        chatMessage.setTimestampe(System.currentTimeMillis());
-//        return chatMessage;
-//    }
+    public static ChatBean sendMessage(String message, String mId) {
+        ChatBean chatMessage = new ChatBean();
+        String gsonResult = doGet(message);
+        if (gsonResult != null) {
+            try {
+                JSONObject jsonObj = new JSONObject(gsonResult);
+                if(jsonObj.has("text")){
+                    chatMessage.setmMessage(jsonObj.getString("text"));
+                }else{
+                    chatMessage.setmMessage(null);
+                }
+            } catch (Exception e) {
+                chatMessage.setmMessage("服务器繁忙，请稍候再试...");
+            }
+        }
+        chatMessage.setmSenderID("eternallove");
+        chatMessage.setmRecipientID(mId);
+        chatMessage.setmTimestamp(System.currentTimeMillis());
+        return chatMessage;
+    }
 
     /**
      * get请求

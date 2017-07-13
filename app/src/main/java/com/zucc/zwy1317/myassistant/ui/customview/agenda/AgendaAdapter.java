@@ -10,7 +10,11 @@ import android.widget.TextView;
 
 import com.zucc.zwy1317.myassistant.R;
 import com.zucc.zwy1317.myassistant.modle.ScheduleBean;
+import com.zucc.zwy1317.myassistant.util.CalendarManager;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import se.emilsjolander.stickylistheaders.StickyListHeadersAdapter;
@@ -26,12 +30,13 @@ public class AgendaAdapter extends BaseAdapter implements StickyListHeadersAdapt
     private LayoutInflater inflater;
     private Context mContext;
     private List<ScheduleBean> mData;
+    private SimpleDateFormat mFormat = CalendarManager.getInstance().getWeekdayFormatter();
 
 
-    public AgendaAdapter(Context context,List<ScheduleBean> data) {
+    public AgendaAdapter(Context context) {
         this.mContext = context;
         this.inflater = LayoutInflater.from(context);
-        this.mData = data;
+        mData =new ArrayList<>();
         this.mCurrentDayColor = mContext.getResources().getColor(mCurrentDayColor);
     }
 
@@ -63,7 +68,7 @@ public class AgendaAdapter extends BaseAdapter implements StickyListHeadersAdapt
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder;
-
+        ScheduleBean scheduleBean = mData.get(position);
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = inflater.inflate(R.layout.agenda_view_sss, parent, false);
@@ -72,13 +77,13 @@ public class AgendaAdapter extends BaseAdapter implements StickyListHeadersAdapt
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.tvEvent.setText(position+"");
+        holder.tvEvent.setText(scheduleBean.toString());
         return convertView;
     }
 
     @Override
     public View getHeaderView(int position, View convertView, ViewGroup parent) {
-        HeaderViewHolder holder = new HeaderViewHolder();
+        HeaderViewHolder holder;
         if (convertView == null) {
             holder = new HeaderViewHolder();
             convertView = inflater.inflate(R.layout.agenda_view_header,parent,false);
@@ -89,7 +94,8 @@ public class AgendaAdapter extends BaseAdapter implements StickyListHeadersAdapt
         } else {
             holder = (HeaderViewHolder) convertView.getTag();
         }
-        holder.tvHeadDay.setText(mData.get(position).getHeadID()+"");
+        holder.tvHeadDay.setText(String.valueOf(mData.get(position).getDate().get(Calendar.DAY_OF_MONTH)));
+        holder.tvHeadWeek.setText(mFormat.format(mData.get(position).getDate().getTime()));
         return convertView;
     }
 

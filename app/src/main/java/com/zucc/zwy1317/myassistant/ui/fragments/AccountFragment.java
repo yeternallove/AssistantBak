@@ -1,6 +1,5 @@
 package com.zucc.zwy1317.myassistant.ui.fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import com.zucc.zwy1317.myassistant.R;
 import com.zucc.zwy1317.myassistant.db.AssistantDB;
@@ -20,11 +18,10 @@ import com.zucc.zwy1317.myassistant.modle.TypeIconBean;
 import com.zucc.zwy1317.myassistant.ui.activities.AccountAddActivity;
 import com.zucc.zwy1317.myassistant.ui.activities.MainActivity;
 import com.zucc.zwy1317.myassistant.ui.adapters.AccountAdapter;
-import com.zucc.zwy1317.myassistant.ui.adapters.TypeIconAdapter;
 import com.zucc.zwy1317.myassistant.ui.base.BaseFragment;
 import com.zucc.zwy1317.myassistant.util.DateUtil;
+import com.zucc.zwy1317.myassistant.util.UserManager;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -43,11 +40,10 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     public static final int REQ_NEW = 1;
     public static final int REQ_LOOK = 2;
 
-    private AssistantDB db;
+    private AssistantDB assistantDB;
     private List<RecordBean> mData;
     private HashMap<String,TypeIconBean> map;
     private AccountAdapter adapter;
-    private String uID = "admin";
     private MainActivity activity;
 
     @BindView(R.id.acc_imgBtn_account)
@@ -63,10 +59,10 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         activity = (MainActivity)getActivity();
         activity.onFragmentHiddenChanged(false,MainActivity.TAG_ACC);
 
-        db = AssistantDB.getInstance(getActivity());
-        mData = db.loadRecordAll(uID);
+        assistantDB = AssistantDB.getInstance(getActivity());
+        mData = assistantDB.loadRecordAll(UserManager.getInstance(activity).getuID());
         bindData(mData);
-        map = db.loadTypeIconMap();
+        map = assistantDB.loadTypeIconMap();
 
         map.put("花钱",new TypeIconBean());
         adapter = new AccountAdapter(getActivity(),mData,map);
@@ -83,7 +79,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.acc_imgBtn_account:
-                startActivityForResult(new Intent(getActivity(), AccountAddActivity.class),  REQ_NEW);
+                startActivityForResult(new Intent(activity, AccountAddActivity.class),  REQ_NEW);
                 break;
         }
     }
@@ -94,7 +90,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         switch (requestCode) {
             case REQ_NEW:
                 if(resultCode == AccountAddActivity.ACC_ADD_SAVE){
-                    mData = db.loadRecordAll(uID);
+                    mData = assistantDB.loadRecordAll(UserManager.getInstance(activity).getuID());
                     bindData(mData);
                     adapter.updateData(mData);
                 }
@@ -105,10 +101,12 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
                 break;
         }
     }
+
     @Override
     public void onHiddenChanged(boolean hidden) {
         activity.onFragmentHiddenChanged(hidden,MainActivity.TAG_ACC);
     }
+
     public void bindData( List<RecordBean> data){
         Context mContext = getActivity();
         Calendar c1 = Calendar.getInstance();

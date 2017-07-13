@@ -2,6 +2,7 @@ package com.zucc.zwy1317.myassistant.ui.activities;
 
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -45,6 +46,8 @@ public class MainActivity extends BaseActivity
 
     private String TAG_NOW;
     private FragmentManager fm;
+    private ActionBarDrawerToggle toggle;
+
     @BindView(R.id.main_appbarlayout)
     AppBarLayout appBarLayout;
     @BindView(R.id.main_toolbar)
@@ -62,6 +65,12 @@ public class MainActivity extends BaseActivity
     @BindView(R.id.main_appbar_img_today)
     ImageView imgToday;
 
+    public static void actionStart(Context context) {
+        Intent intent = new Intent();
+        intent.setClass(context, MainActivity.class);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,7 +81,7 @@ public class MainActivity extends BaseActivity
 
         initCalendarInfo();
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
@@ -152,7 +161,6 @@ public class MainActivity extends BaseActivity
         }
     }
 
-
     private void initCalendarInfo() {
         // 设置日历显示的时间，最大为当前时间+1年，最小为当前时间-2月
         Calendar minDate = Calendar.getInstance();
@@ -186,9 +194,9 @@ public class MainActivity extends BaseActivity
         switch (type){
             case 0:
                 if(is){
-
+                    toolbar.setTitle("");
                 }else{
-
+                    toolbar.setTitle("晓梦");
                 }
                 break;
             case 1:
@@ -212,6 +220,7 @@ public class MainActivity extends BaseActivity
             case 3:
                 if(is){
                     appBarLayout.setVisibility(View.VISIBLE);
+                    drawer.setDrawerListener(toggle);
                 }else{
                     appBarLayout.setVisibility(View.GONE);
                 }
@@ -223,5 +232,9 @@ public class MainActivity extends BaseActivity
 
     public ImageView getImgToday(){
         return  this.imgToday;
+    }
+
+    public DrawerLayout getDrawer(){
+        return this.drawer;
     }
 }

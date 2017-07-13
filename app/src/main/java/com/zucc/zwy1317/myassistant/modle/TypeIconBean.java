@@ -12,6 +12,7 @@ public class TypeIconBean {
     public static final int TYPE_NULL= 0;
     public static final int TYPE_INCOME = 1;
     public static final int TYPE_SPENDING = 2;
+
     private int iID;
     private int type;
     private int icon;

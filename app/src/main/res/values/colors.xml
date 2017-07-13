@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--base-->
-     <color name="colorPrimary">#FF5722</color>
+    <color name="colorPrimary">#FF5722</color>
     <color name="colorPrimaryDark">#E64A19</color>
     <color name="primary_light">#FFCCBC</color>
     <color name="colorAccent">#FF5252</color>
@@ -9,6 +9,9 @@
     <color name="secondary_text">#757575</color>
     <color name="icons">#FFFFFF</color>
     <color name="divider">#BDBDBD</color>
+    <color name="shadow">#4fa3a3a3</color>
+    <color name="btn_gray_normal">#c0c0c0</color>
+    <color name="luolelv">#009688</color>
 
     <!-- Colors for Calendar view -->
     <color name="calendar_month_transparent_background">#70ffffff</color>
