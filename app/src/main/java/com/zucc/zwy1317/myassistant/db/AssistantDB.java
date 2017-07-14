@@ -172,11 +172,11 @@ public class AssistantDB {
         return true;
     }
 
-    public List<TypeIconBean> loadTypeIconAll(){
-        final String sql = "SELECT iID,title,color,type,icon FROM TypeIconBean ";
+    public List<TypeIconBean> loadTypeIconAll(int type){
+        final String sql = "SELECT iID,title,color,type,icon FROM TypeIconBean WHERE type = ?";
         List<TypeIconBean> list = new ArrayList<>();
         TypeIconBean typeIconBean;
-        Cursor c = db.rawQuery(sql,new String[]{});
+        Cursor c = db.rawQuery(sql,new String[]{type+""});
         while (c.moveToNext()){
             typeIconBean = new TypeIconBean();
             typeIconBean.setiID(c.getInt(0));
@@ -191,7 +191,20 @@ public class AssistantDB {
     }
 
     public HashMap<String,TypeIconBean> loadTypeIconMap(){
-        List<TypeIconBean> list = loadTypeIconAll();
+        final String sql = "SELECT iID,title,color,type,icon FROM TypeIconBean";
+        List<TypeIconBean> list = new ArrayList<>();
+        TypeIconBean typeIconBean;
+        Cursor c = db.rawQuery(sql,new String[]{});
+        while (c.moveToNext()){
+            typeIconBean = new TypeIconBean();
+            typeIconBean.setiID(c.getInt(0));
+            typeIconBean.setTitle(c.getString(1));
+            typeIconBean.setColor(c.getString(2));
+            typeIconBean.setType(c.getInt(3));
+            typeIconBean.setIcon(c.getInt(4));
+            list.add(typeIconBean);
+        }
+        c.close();
         HashMap<String,TypeIconBean> map = new HashMap<>();
         for(int i = 0; i < list.size() ;i++){
             map.put(list.get(i).getTitle(),list.get(i));
@@ -303,4 +316,24 @@ public class AssistantDB {
         return list;
     }
 
+    public void initTypeIcon(){
+        final String sql = "DELETE FROM TypeIconBean ";
+        db.execSQL(sql);
+        List<TypeIconBean> list = new ArrayList<>();
+        for(int i = 9;i < 17;i++) {
+            list.add(new TypeIconBean(TypeIconBean.TYPE_INCOME,
+                    mContext.getResources().getIdentifier("ic_type_"+i, "drawable", "com.zucc.zwy1317.myassistant"),
+                    "收" + i+"型",
+                    null));
+        }
+        for(int i = 1;i < 8 ;i++) {
+            list.add(new TypeIconBean(TypeIconBean.TYPE_SPENDING,
+                    mContext.getResources().getIdentifier("ic_type_"+i, "drawable", "com.zucc.zwy1317.myassistant"),
+                    "支" + i + "型",
+                    null));
+        }
+        for(int i = 0;i<list.size();i++){
+            saveTypeIcon(list.get(i));
+        }
+    }
 }

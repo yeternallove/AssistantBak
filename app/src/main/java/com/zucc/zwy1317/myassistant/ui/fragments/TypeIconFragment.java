@@ -9,12 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.zucc.zwy1317.myassistant.R;
-import com.zucc.zwy1317.myassistant.db.AssistantDB;
 import com.zucc.zwy1317.myassistant.modle.TypeIconBean;
 import com.zucc.zwy1317.myassistant.ui.adapters.TypeIconAdapter;
 import com.zucc.zwy1317.myassistant.ui.base.BaseFragment;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,8 +28,13 @@ import butterknife.ButterKnife;
 public class TypeIconFragment extends BaseFragment {
 
     private TypeIconAdapter adapter;
-    private List<TypeIconBean> data = new ArrayList<>();
-    private AssistantDB assistantDB;
+    private List<TypeIconBean> data;
+    private TypeIconAdapter.MyItemClickListener listener;
+
+    public TypeIconFragment(List<TypeIconBean> list, TypeIconAdapter.MyItemClickListener listener){
+        this.data = list;
+        this.listener = listener;
+    }
 
     @BindView(R.id.typeicon_recyclerview)
     RecyclerView mRecyclerView;
@@ -40,9 +44,7 @@ public class TypeIconFragment extends BaseFragment {
 //        View view = inflater.inflate(R.layout.fragment_account,container,false);
         View view = View.inflate(getContext(),R.layout.fragment_typeicon,null);
         ButterKnife.bind(this,view);
-        assistantDB = AssistantDB.getInstance(getActivity());
-        data = assistantDB.loadTypeIconAll();
-        adapter = new TypeIconAdapter(getActivity(),data);
+        adapter = new TypeIconAdapter(getActivity(),data,listener);
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),5));
         mRecyclerView.setHasFixedSize(true);

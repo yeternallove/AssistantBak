@@ -11,8 +11,8 @@
 
     <!--account-->
     <string name="title_account">添加预算</string>
-    <string name="tv_account_income">收入</string>
-    <string name="tv_account_spending">支出</string>
+    <string name="tv_account_income">总收入</string>
+    <string name="tv_account_spending">总支出</string>
     <string name="today">今天</string>
     <string name="yesterday">昨天</string>
     <string name="just_now">刚刚</string>

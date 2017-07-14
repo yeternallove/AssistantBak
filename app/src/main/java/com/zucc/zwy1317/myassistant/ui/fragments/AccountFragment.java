@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.zucc.zwy1317.myassistant.R;
 import com.zucc.zwy1317.myassistant.db.AssistantDB;
@@ -50,6 +51,10 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     ImageButton imgBtnAccount;
     @BindView(R.id.account_recyclerview)
     RecyclerView mRecyclerView;
+    @BindView(R.id.acc_tv_incomeMoney)
+    TextView tvIncome;
+    @BindView(R.id.acc_tv_spendingMoney)
+    TextView tvSpending;
 
     @Override
     public View onCreateView(LayoutInflater inflater , @Nullable ViewGroup container,@Nullable Bundle savedInstanceState){
@@ -60,11 +65,9 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         activity.onFragmentHiddenChanged(false,MainActivity.TAG_ACC);
 
         assistantDB = AssistantDB.getInstance(getActivity());
-        mData = assistantDB.loadRecordAll(UserManager.getInstance(activity).getuID());
-        bindData(mData);
+        onChangeData();
         map = assistantDB.loadTypeIconMap();
 
-        map.put("花钱",new TypeIconBean());
         adapter = new AccountAdapter(getActivity(),mData,map);
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLayoutManager(
@@ -90,8 +93,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         switch (requestCode) {
             case REQ_NEW:
                 if(resultCode == AccountAddActivity.ACC_ADD_SAVE){
-                    mData = assistantDB.loadRecordAll(UserManager.getInstance(activity).getuID());
-                    bindData(mData);
+                    onChangeData();
                     adapter.updateData(mData);
                 }
                 break;
@@ -112,7 +114,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         Calendar c1 = Calendar.getInstance();
         Calendar c2 = Calendar.getInstance();
         RecordBean recordBean;
-        double sum = 0;
+        double sum ;
         int i = 0, j =1;
         int length = data.size();
 
@@ -142,6 +144,23 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
                 data.add(i,recordBean);
             }
         }
+    }
+
+    private void onChangeData(){
+        double sumIncome = 0, sumSpending = 0;
+        RecordBean recordBean;
+        mData = assistantDB.loadRecordAll(UserManager.getInstance(activity).getuID());
+        for (int i = 0;i < mData.size(); i++){
+            recordBean = mData.get(i);
+            if(recordBean.getType() == TypeIconBean.TYPE_INCOME){
+                sumIncome += recordBean.getmAmount();
+            }else{
+                sumSpending += recordBean.getmAmount();
+            }
+        }
+        tvIncome.setText(String.format("%.2f",sumIncome));
+        tvSpending.setText(String.format("%.2f",sumSpending));
+        bindData(mData);
     }
 
 }

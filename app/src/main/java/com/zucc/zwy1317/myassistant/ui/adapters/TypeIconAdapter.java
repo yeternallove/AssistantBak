@@ -9,9 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zucc.zwy1317.myassistant.R;
-import com.zucc.zwy1317.myassistant.modle.RecordBean;
 import com.zucc.zwy1317.myassistant.modle.TypeIconBean;
-import com.zucc.zwy1317.myassistant.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,22 +25,18 @@ import butterknife.ButterKnife;
 
 public class TypeIconAdapter extends RecyclerView.Adapter<TypeIconAdapter.TypeIconHolder> {
     private Context mContext;
-    private List<TypeIconBean> mData = new ArrayList<>();
+    private List<TypeIconBean> mData;
+    private MyItemClickListener mItemClickListener;
 
-    public TypeIconAdapter(Context context,List<TypeIconBean> data) {
+    public TypeIconAdapter(Context context,List<TypeIconBean> data,MyItemClickListener myItemClickListener) {
         mContext = context;
         this.mData = data;
+        this.mItemClickListener = myItemClickListener;
     }
-
-    public void updateData(List<TypeIconBean> data) {
-        mData = data;
-        notifyDataSetChanged();
-    }
-
     @Override
     public TypeIconHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new TypeIconHolder(LayoutInflater.from(mContext)
-                .inflate(R.layout.item_typeicon, parent, false));
+                .inflate(R.layout.item_typeicon, parent, false),mItemClickListener);
     }
 
     @Override
@@ -58,15 +52,28 @@ public class TypeIconAdapter extends RecyclerView.Adapter<TypeIconAdapter.TypeIc
         return mData.size();
     }
 
-    static class TypeIconHolder extends RecyclerView.ViewHolder {
+    static class TypeIconHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        private MyItemClickListener listener;
 
         @BindView(R.id.item_typeicon_img)
         ImageView mImg;
         @BindView(R.id.item_typeicon_tv)
         TextView mTv;
-        public TypeIconHolder(View itemView) {
+        public TypeIconHolder(View itemView, MyItemClickListener listener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            this.listener = listener;
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            if(listener != null){
+                listener.onItemClick(view,getPosition());
+            }
+        }
+    }
+    public interface MyItemClickListener {
+        void onItemClick(View view, int position);
     }
 }

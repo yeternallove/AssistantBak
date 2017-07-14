@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zucc.zwy1317.myassistant.R;
+import com.zucc.zwy1317.myassistant.db.AssistantDB;
 import com.zucc.zwy1317.myassistant.ui.base.BaseActivity;
 import com.zucc.zwy1317.myassistant.ui.base.BaseFragment;
 import com.zucc.zwy1317.myassistant.ui.fragments.AccountFragment;
@@ -95,6 +96,7 @@ public class MainActivity extends BaseActivity
         navigationView.setCheckedItem(R.id.nav_chat);
 
         navigationView.setNavigationItemSelectedListener(this);
+        test();
     }
 
     @Override
@@ -236,5 +238,11 @@ public class MainActivity extends BaseActivity
 
     public DrawerLayout getDrawer(){
         return this.drawer;
+    }
+
+    //测试使用
+    private void test(){
+        AssistantDB assistantDB = AssistantDB.getInstance(this);
+        assistantDB.initTypeIcon();
     }
 }

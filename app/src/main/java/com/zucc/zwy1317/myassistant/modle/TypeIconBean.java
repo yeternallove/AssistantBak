@@ -21,7 +21,14 @@ public class TypeIconBean {
 
     public TypeIconBean(){
         this.type = TYPE_SPENDING;
-        this.icon = R.drawable.liu_shui_anjiehuankuan;
+        this.icon = R.drawable.ic_type_1;
+    }
+
+    public TypeIconBean(int type,int icon,String title,String color){
+        this.type = type;
+        this.icon = icon;
+        this.title = title;
+        this.color = color;
     }
 
     public int getiID() {

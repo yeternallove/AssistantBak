@@ -78,7 +78,7 @@
         android:layout_width="@dimen/account_imgBtn_size"
         android:layout_height="@dimen/account_imgBtn_size"
         android:layout_marginTop="@dimen/account_imgBtn_marginTop"
-        android:background="@drawable/ic_menu_camera"
+        android:background="@drawable/ic_edit"
         android:layout_centerHorizontal="true"
         />
 </RelativeLayout>
