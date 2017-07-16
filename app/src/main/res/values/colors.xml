@@ -11,7 +11,10 @@
     <color name="divider">#BDBDBD</color>
     <color name="shadow">#4fa3a3a3</color>
     <color name="btn_gray_normal">#c0c0c0</color>
-    <color name="luolelv">#009688</color>
+
+    <color name="primary">#03A9F4</color>
+    <color name="primary_dark">#0288D1</color>
+    <color name="accent">#00BCD4</color>
 
     <!-- Colors for Calendar view -->
     <color name="calendar_month_transparent_background">#70ffffff</color>
@@ -25,4 +28,13 @@
     <color name="calendar_agendaHead_current_color">#03A9F4</color>
     <color name="calendar_circle_other_color">#dee1e2</color>
 
+    <!-- Alarm Color -->
+    <color name="blue">#03A9F4</color>
+    <color name="moren">#3f51b5</color>
+    <color name="luolelv">#009688</color>
+    <color name="yaoyanhuang">#F5A623</color>
+    <color name="fanqiehong">#ff0000</color>
+    <color name="didiaohui">#607d88</color>
+    <color name="juzihong">#E64A19</color>
+    <color name="shenkonglan">#00537F</color>
 </resources>

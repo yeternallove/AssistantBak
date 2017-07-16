@@ -11,8 +11,8 @@
 
     <!--account-->
     <string name="title_account">添加预算</string>
-    <string name="tv_account_income">总收入</string>
-    <string name="tv_account_spending">总支出</string>
+    <string name="tv_account_income">收入</string>
+    <string name="tv_account_spending">支出</string>
     <string name="today">今天</string>
     <string name="yesterday">昨天</string>
     <string name="just_now">刚刚</string>
@@ -45,12 +45,14 @@
     <string name="comment_me">我</string>
     <string name="comment_reply">回复</string>
     <string name="daily_punch">每日打卡</string>
-    <string name="day_name_format"></string>
-    <string name="error_field_required"></string>
     <string name="exit">退出</string>
     <string name="homepage">主页</string>
+    <string name="action_register">注册</string>
+    <string name="action_password_again">确认密码</string>
     <string name="prompt_password">密码</string>
     <string name="prompt_username">用户名</string>
+    <string name="action_sign_in_other">第三方登录</string>
+    <string name="forgot_your_password">忘记密码</string>
     <string name="send_the_content_is_empty">发送内容不能为空</string>
     <string name="title_activity_login">登录</string>
 

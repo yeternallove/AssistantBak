@@ -57,6 +57,17 @@ public class AssistantDB {
                 userBean.getmNickname(), userBean.getmPwd(), userBean.getmAvatar(), userBean.getmData()});
     }
 
+    public boolean register(String account, String pwd){
+        final String sql_s = "SELECT * FROM User WHERE uID = ? ";//select
+        final String sql_i = "INSERT INTO User(uID,pwd) VALUES(?,?)";//insert
+        Cursor c = db.rawQuery(sql_s, new String[]{account});
+        if (c.moveToFirst()) {
+            c.close();
+            return false;
+        }
+        db.execSQL(sql_i, new Object[]{account,pwd});
+        return true;
+    }
     public String login(String account, String pwd) {
         final String sql = "SELECT uID,pwd FROM User WHERE uID = ? ";
         Cursor c = db.rawQuery(sql, new String[]{account});

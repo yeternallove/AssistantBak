@@ -25,7 +25,6 @@ public class CalendarManager {
     private Locale mLocale;
     private Calendar mToday = Calendar.getInstance();
 
-    //SimpleDateFormat 是一个以国别敏感的方式格式化和分析数据的具体类。 它允许格式化 (date -> text)、语法分析 (text -> date)和标准化。
     private SimpleDateFormat mWeekdayFormatter;
     private SimpleDateFormat mMonthHalfNameFormat;
     private SimpleDateFormat mMonthDateFormat;

@@ -28,11 +28,6 @@ import butterknife.ButterKnife;
 
 public class AccountAdapter extends RecyclerView.Adapter<AccountAdapter.AccountViewHolder> {
 
-    private static final int TYPE_NULL= 0;
-    private static final int TYPE_INCOME = 1;
-    private static final int TYPE_SPENDING = 2;
-    private static final int TYPE_FEET= 3;
-
 
     private Context mContext;
     private List<RecordBean> mData = new ArrayList<>();

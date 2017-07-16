@@ -25,6 +25,8 @@
     <dimen name="acc_add_btn_save_height">48dp</dimen>
     <dimen name="acc_add_top_margin_bottom">48dp</dimen>
 
+    <!--Schedule-->
+    <dimen name="sch_add_height">48dp</dimen>
     <!-- Calendar values -->
     <dimen name="circle_selected_size">32dp</dimen>
     <dimen name="day_cell_height">52dp</dimen>

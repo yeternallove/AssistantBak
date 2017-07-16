@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ import com.zucc.zwy1317.myassistant.ui.fragments.ChatFragment;
 import com.zucc.zwy1317.myassistant.ui.fragments.OtherFragment;
 import com.zucc.zwy1317.myassistant.ui.fragments.ScheduleFragment;
 import com.zucc.zwy1317.myassistant.util.CalendarManager;
+import com.zucc.zwy1317.myassistant.util.UserManager;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -48,6 +50,7 @@ public class MainActivity extends BaseActivity
     private String TAG_NOW;
     private FragmentManager fm;
     private ActionBarDrawerToggle toggle;
+    private InputMethodManager imm;
 
     @BindView(R.id.main_appbarlayout)
     AppBarLayout appBarLayout;
@@ -86,7 +89,7 @@ public class MainActivity extends BaseActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
+        imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         fm = getSupportFragmentManager();
 
         fm.beginTransaction()
@@ -128,6 +131,7 @@ public class MainActivity extends BaseActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
         int id = item.getItemId();
         switch (id){
             case R.id.nav_chat:
@@ -197,6 +201,7 @@ public class MainActivity extends BaseActivity
             case 0:
                 if(is){
                     toolbar.setTitle("");
+                    imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(),0);
                 }else{
                     toolbar.setTitle("晓梦");
                 }
@@ -244,5 +249,6 @@ public class MainActivity extends BaseActivity
     private void test(){
         AssistantDB assistantDB = AssistantDB.getInstance(this);
         assistantDB.initTypeIcon();
+        UserManager.getInstance(this);
     }
 }
