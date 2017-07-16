@@ -13,7 +13,7 @@ import com.zucc.zwy1317.myassistant.modle.DayItem;
 import com.zucc.zwy1317.myassistant.modle.WeekItem;
 import com.zucc.zwy1317.myassistant.util.BusProvider;
 import com.zucc.zwy1317.myassistant.util.CalendarManager;
-import com.zucc.zwy1317.myassistant.util.DateUtil;
+import com.zucc.zwy1317.myassistant.util.DateHelper;
 import com.zucc.zwy1317.myassistant.util.Events;
 
 import java.text.SimpleDateFormat;
@@ -189,7 +189,7 @@ public class CalendarView extends LinearLayout {
         Calendar scrollToCal = today;
 
         for (int c = 0; c < weeks.size(); c++) {
-            if (DateUtil.sameWeek(scrollToCal, weeks.get(c))) {
+            if (DateHelper.sameWeek(scrollToCal, weeks.get(c))) {
                 currentWeekIndex = c;
                 break;
             }
@@ -313,7 +313,7 @@ public class CalendarView extends LinearLayout {
 
         //循环 得出被选中的日期在哪个星期中
         for (int c = 0; c < CalendarManager.getInstance().getWeeks().size(); c++) {
-            if (DateUtil.sameWeek(scrollToCal, CalendarManager.getInstance().getWeeks().get(c))) {
+            if (DateHelper.sameWeek(scrollToCal, CalendarManager.getInstance().getWeeks().get(c))) {
                 currentWeekIndex = c;
                 break;
             }

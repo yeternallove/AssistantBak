@@ -71,7 +71,7 @@ public class AgendaAdapter extends BaseAdapter implements StickyListHeadersAdapt
         ScheduleBean scheduleBean = mData.get(position);
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = inflater.inflate(R.layout.agenda_view_sss, parent, false);
+            convertView = inflater.inflate(R.layout.agenda_view_event, parent, false);
             holder.tvEvent = (TextView) convertView.findViewById(R.id.tv_agenda_day_event);
             convertView.setTag(holder);
         } else {

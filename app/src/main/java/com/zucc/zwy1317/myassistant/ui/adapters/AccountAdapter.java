@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.zucc.zwy1317.myassistant.R;
 import com.zucc.zwy1317.myassistant.modle.RecordBean;
 import com.zucc.zwy1317.myassistant.modle.TypeIconBean;
-import com.zucc.zwy1317.myassistant.util.DateUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;

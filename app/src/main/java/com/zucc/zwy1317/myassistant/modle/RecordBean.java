@@ -3,7 +3,7 @@ package com.zucc.zwy1317.myassistant.modle;
 
 import android.content.Context;
 
-import com.zucc.zwy1317.myassistant.util.DateUtil;
+import com.zucc.zwy1317.myassistant.util.DateHelper;
 
 import java.util.Calendar;
 
@@ -36,7 +36,7 @@ public class RecordBean {
         this.mType = TypeIconBean.TYPE_NULL;
         this.mTime = time;
         this.mAmount = amount;
-        this.mTitle = DateUtil.getDateString(context,this.mTime);
+        this.mTitle = DateHelper.getDateString(context,this.mTime);
     }
     public RecordBean( String rID, double amount,long time,int type,String title, String note,String location,String photo,String uID){
         this.rID = rID;

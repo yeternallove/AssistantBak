@@ -165,6 +165,10 @@ public class MainActivity extends BaseActivity
         if(bf != null) {
             bf.onActivityResult(requestCode, resultCode, data);
         }
+        bf = fm.findFragmentByTag(TAG_FRAGMENT[2]);
+        if(bf != null) {
+            bf.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     private void initCalendarInfo() {

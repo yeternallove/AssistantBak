@@ -1,12 +1,8 @@
 package com.zucc.zwy1317.myassistant.modle;
 
 
-import com.zucc.zwy1317.myassistant.util.CalendarManager;
-import com.zucc.zwy1317.myassistant.util.DateUtil;
-
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * @description:

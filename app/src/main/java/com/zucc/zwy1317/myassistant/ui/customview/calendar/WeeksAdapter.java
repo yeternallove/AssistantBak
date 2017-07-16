@@ -183,7 +183,7 @@ public class WeeksAdapter extends RecyclerView.Adapter<WeeksAdapter.WeekViewHold
                 // Check if this day is in the past
                 // 检查日期是否为过去,且不是同一天
                 // after 判断此 Calendar 表示的时间是否在指定 Object 表示的时间之后，返回判断结果
-                if (today.getTime().after(dayItem.getDate().getTime()) && !DateHelper.sameDate(today, dayItem.getDate())) {
+                if (today.getTime().after(dayItem.getDate().getTime()) && !DateHelper.sameDay(today, dayItem.getDate())) {
                     //设置为过去日期的样式
                     txtDay.setTextColor(mPastDayTextColor);
                     txtMonth.setTextColor(mPastDayTextColor);

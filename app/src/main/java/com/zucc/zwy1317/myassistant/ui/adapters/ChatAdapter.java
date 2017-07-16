@@ -13,7 +13,6 @@ import com.zucc.zwy1317.myassistant.R;
 import com.zucc.zwy1317.myassistant.db.AssistantDB;
 import com.zucc.zwy1317.myassistant.modle.ChatBean;
 import com.zucc.zwy1317.myassistant.util.CalendarManager;
-import com.zucc.zwy1317.myassistant.util.DateUtil;
 import com.zucc.zwy1317.myassistant.util.UserManager;
 
 import java.text.SimpleDateFormat;

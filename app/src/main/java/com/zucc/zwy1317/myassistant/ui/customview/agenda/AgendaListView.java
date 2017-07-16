@@ -6,7 +6,7 @@ import android.util.AttributeSet;
 
 import com.zucc.zwy1317.myassistant.modle.DayItem;
 import com.zucc.zwy1317.myassistant.util.CalendarManager;
-import com.zucc.zwy1317.myassistant.util.DateUtil;
+import com.zucc.zwy1317.myassistant.util.DateHelper;
 
 import java.util.Calendar;
 import java.util.List;
@@ -36,7 +36,7 @@ public class AgendaListView extends StickyListHeadersListView {
 
         int toIndex = 0;
         for (int i = 0; i < days.size(); i++) {
-            if (DateUtil.sameDay(today,days.get(i).getDate())) {
+            if (DateHelper.sameDay(today,days.get(i).getDate())) {
                 toIndex = i;
                 break;
             }

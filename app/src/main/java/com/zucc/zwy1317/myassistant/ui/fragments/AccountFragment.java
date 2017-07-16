@@ -20,7 +20,7 @@ import com.zucc.zwy1317.myassistant.ui.activities.AccountAddActivity;
 import com.zucc.zwy1317.myassistant.ui.activities.MainActivity;
 import com.zucc.zwy1317.myassistant.ui.adapters.AccountAdapter;
 import com.zucc.zwy1317.myassistant.ui.base.BaseFragment;
-import com.zucc.zwy1317.myassistant.util.DateUtil;
+import com.zucc.zwy1317.myassistant.util.DateHelper;
 import com.zucc.zwy1317.myassistant.util.UserManager;
 
 import java.util.Calendar;
@@ -127,7 +127,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
             while( j < length ){
                 c1.setTimeInMillis(data.get(i).getmTime());
                 c2.setTimeInMillis(data.get(j).getmTime());
-                if(DateUtil.sameDay(c1,c2)){
+                if(DateHelper.sameDay(c1,c2)){
                     sum += data.get(j).getNum();
                     j++;
                 }else{

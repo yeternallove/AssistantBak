@@ -185,7 +185,7 @@ public class CalendarManager {
                 weekItem.setmLabel(strMouth);
             }
             dayItem.setMonth(strMouth);
-            if(DateUtil.sameDay(mToday,cal)){
+            if(DateHelper.sameDay(mToday,cal)){
                 dayItem.setToday(true);
             }
             cal.add(Calendar.DATE, 1);
@@ -205,7 +205,7 @@ public class CalendarManager {
         for(Date date = days.get(0).getDate().getTime(); j < list.size() && date.after(list.get(j).getDate().getTime()); j++);
 
         while(i < daysSize && j < list.size()){
-            if(DateUtil.sameDay(days.get(i).getDate(),list.get(j).getDate())){
+            if(DateHelper.sameDay(days.get(i).getDate(),list.get(j).getDate())){
                 scheduleBean = list.get(j);
                 scheduleBean.setHeadID(i);
                 scheduleList.add(scheduleBean);

@@ -4,19 +4,10 @@ import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.zucc.zwy1317.myassistant.R;
-import com.zucc.zwy1317.myassistant.util.CalendarManager;
-import com.zucc.zwy1317.myassistant.util.DateHelper;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.List;
 
 /**
  * Header view for the StickyHeaderListView of the agenda view
@@ -101,7 +92,7 @@ public class AgendaHeaderView extends LinearLayout {
 //
 //
 //        //如果当前日期为today,则显示为蓝色,同时设置circleView的颜色粗细,否则就隐藏circleView
-//        if (DateHelper.sameDate(day, today)) {
+//        if (Da.sameDate(day, today)) {
 //            txtDayOfMonth.setTextColor(currentDayTextColor);
 //            txtDayOfWeek.setTextColor(currentDayTextColor);
 ////            circleView.setVisibility(VISIBLE);
